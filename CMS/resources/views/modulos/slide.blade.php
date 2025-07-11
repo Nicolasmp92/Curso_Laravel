@@ -24,64 +24,91 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        {{-- TODO cargar imagenes --}}
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6">
-                                        <form class="mt-5 " enctype="multipart/form-data" action="" method="post"
-                                            novalidate="">
+                                        <form class="mt-5 " enctype="multipart/form-data"
+                                            action="{{ route('store.slide') }}" method="post" novalidate="">
                                             @csrf
 
                                             <div class="form-group">
+                                                <label class="form-label">Cargar Imagen</label>
+                                                <input type="file" name="imagen" accept="images/*"
+                                                    class="form-control-file" onchange="previewImage(event)">
+                                                @error('image')
+                                                    <p>Solo puedes cargar imagenes</p>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Titulo:</label>
-                                                <input type="text" class="form-control" id="exampleFormControlFile1">
+                                                <input type="text" name="titulo" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>Descripcion:</label>
-                                                <input type="text" class="form-control" id="exampleFormControlFile1">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleFormControlFile1">Cargar Imagen</label>
-                                                <input  type="file"
-                                                        class="form-control-file"
-                                                        id="exampleFormControlFile1"
-                                                        onchange="previewImage(event, '#imgPreview')">
+                                                <input type="text" name="descripcion" class="form-control">
                                             </div>
 
                                             <button class="btn btn-success" type="submit"> Guardar</button>
                                         </form>
                                     </div>
                                     <div class="col-6 px-5">
-                                        <img class="border border-success" style="height: 21rem; width:21rem;" id="imgPreview">
+                                        <img class="img-responsive border border-success" id="imagePreview"
+                                            style="width: 25rem; heith:25rem;" </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- TODO mostrar imagenes --}}
+                    <div class="card mt-5">
+                        <div class="card-body">
+                            <div class="container">
+                                <h2 class="text-bold pt-2 pb-4">Imagenes cargadas</h2>
+                                <div class="row">
+                                    @foreach ($slide as $sli)
+                                        <div class="col-3 mb-4 px-2">
+                                            <div class="card h-100">
+                                                <img src="{{ asset('storage/' . $sli->imagen) }}" class="card-img-top"
+                                                    alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $sli->titulo }}</h5>
+                                                    <p class="card-text">{{ $sli->descripcion }}</p>
+                                                    <a href="#" class="btn btn-danger">
+                                                        <i class="fa fa-trash sticky-bottom"> </i> Eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- /.container-fluid -->
+            </div><!-- /.container-fluid -->
     </section>
 
     <script>
-function previewImage(event, querySelector){
+        function previewImage(event) {
+            const input = event.target;
+            const imagePreview = document.getElementById('imagePreview');
+            const file = input.files[0];
 
- const input = event.target;
-  const imagePreview = document.querySelector(querySelector);
+            if (file) {
+                const reader = new FileReader();
 
-  if(!input.files.length){
-    return
-  }
-
-  const file = input.files[0];
-  const reader = new FileReader();
-
-  reader.onload = function() {
-    imagePreview.src = reader.result;
-  }
-
-  reader.readAsDataURL(file);
-}
-</script>
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = ""; // Limpiar vista previa si no hay archivo
+            }
+        }
+    </script>
 @endsection

@@ -31,8 +31,8 @@ class EjemploController extends Controller
      */
     public function store(Request $request)
     {
-        $rutaImg = $request[
-            'image']->store('imagen-prueba','public');
+        $rutaImg = $request->file('image')->store('imagen-prueba', 'public');
+;
 
         $datos= request()->validate([
             'nombre'=>'required|min:5',

@@ -23,7 +23,8 @@
             </div>
 
             <div class="info text-muted">
-                <a href="#" class="text-muted d-block">{{auth()->user()->name}} </a>
+                <a href="#" class="text-muted d-block"> </a>
+                {{-- {{auth()->user()->name}} --}}
 
             </div>
         </div>

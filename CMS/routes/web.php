@@ -56,14 +56,14 @@ Route::delete('/eliminar_usuarios/{id}',[MisdatosController::class,'destroy'])
 // Mostrar lista de slides
 Route::get('/mostrar-slide',[SlideController::class, 'index'])
 ->name('index.slide');
-// muestra el formulario para crear
-Route::get('/fomr-slide',[SlideController::class,'create'])
-->name('create.slide');
+// // muestra el formulario para crear
+// Route::get('/fomr-slide',[SlideController::class,'create'])
+// ->name('create.slide');
 // Guardar slide
 Route::post('/crear-slide',[SlideController::class,'store'])
 ->name('store.slide');
-// eliminar
-Route::delete('/eliminar-slide/{id}',[SlideController::class ,'destroy'])
-->name('delete.destroy');
+// // eliminar
+// Route::delete('/eliminar-slide/{id}',[SlideController::class ,'destroy'])
+// ->name('delete.destroy');
 
 
