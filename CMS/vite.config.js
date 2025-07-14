@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
+                'resources/css/slide.css', // estylo para slide
                 'resources/js/app.js',
             ],
             refresh: true,

@@ -15,7 +15,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::view('/','welcome');
+Route::view('/panel', '/auth.login')
+->name('panel.inicio');
 
 Route::get('/inicio', [InicioController::class, 'index']);
 
@@ -62,8 +63,8 @@ Route::get('/mostrar-slide',[SlideController::class, 'index'])
 // Guardar slide
 Route::post('/crear-slide',[SlideController::class,'store'])
 ->name('store.slide');
-// // eliminar
-// Route::delete('/eliminar-slide/{id}',[SlideController::class ,'destroy'])
-// ->name('delete.destroy');
+// eliminar
+Route::delete('/eliminar_slide/{slide}',[SlideController::class ,'destroy'])
+->name('eliminar.slide');
 
 

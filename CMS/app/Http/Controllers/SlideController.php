@@ -68,6 +68,9 @@ class SlideController extends Controller
     // Elimina el recurso especificado del almacenamiento.
     public function destroy(Slide $slide)
     {
-        //
+    if(Storage::delete('public/'.$slide->imagen)){
+    $slide->delete(); // Eloquent ❤️
+    }
+    return redirect()->route('index.slide');
     }
 }

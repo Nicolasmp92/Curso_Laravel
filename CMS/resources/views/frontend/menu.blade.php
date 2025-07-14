@@ -13,7 +13,10 @@
 
     <nav id="botonera" class="col-lg-9 col-md-9 col-sm-12 col-xs-12 collapse navbar-collapse pull-right">
         <ul class="nav navbar-nav">
-            <li><a href="#">Inicio</a></li>
+            <li>
+                <a href="{{route('panel.inicio')}}">Inicio</a>
+            </li>
+    {{-- <li><a href="#">Inicio</a></li> --}}
             <li><a href="#top">Categorias</a></li>
             <li><a href="Excursiones-Todas">Excursiones</a></li>
             <li><a href="#contactenos">Contáctenos</a></li>

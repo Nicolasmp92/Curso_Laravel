@@ -63,8 +63,6 @@
                         </div>
                     </div>
 
-
-
                     {{-- TODO mostrar imagenes --}}
                     <div class="card mt-5">
                         <div class="card-body">
@@ -79,8 +77,13 @@
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{ $sli->titulo }}</h5>
                                                     <p class="card-text">{{ $sli->descripcion }}</p>
-                                                    <a href="#" class="btn btn-danger">
-                                                        <i class="fa fa-trash sticky-bottom"> </i> Eliminar</a>
+                                                    <form method="POST"
+                                                        action="{{ route('eliminar.slide', $sli->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>
