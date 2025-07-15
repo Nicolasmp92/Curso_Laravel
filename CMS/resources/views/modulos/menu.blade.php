@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route ('misdatos.index')}}" class="nav-link ">
+                            <a href="{{route ('categorias.view')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Categorias

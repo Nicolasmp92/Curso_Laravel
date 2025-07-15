@@ -7,9 +7,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">Categorias</h1>
-                            @csrf
                             <div class="mt-5">
-                                <form action="" method="post">
+                                <form action="{{ route('store.cotegorias') }}" method="post" >
+                                @csrf
                                     <div class="row">
                                         <div class="col-md-6">
                                             <input
@@ -17,6 +17,7 @@
                                             class="form-control"
                                             name="nombre"
                                             placeholder="Categorias"
+                                            required=""
                                             >
                                         </div>
                                         <div class="col-md-4">

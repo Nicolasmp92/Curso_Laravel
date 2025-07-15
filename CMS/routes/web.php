@@ -7,6 +7,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\MisdatosController;
 use App\Http\Controllers\SlideController;
+use Doctrine\DBAL\Driver\Middleware;
 // TODO Facades
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -68,12 +69,12 @@ Route::delete('/eliminar-slide/{id}', [SlideController::class, 'destroy'])->name
 
 
 
-
-Route::get('/categorias', [CategoriasController::class, 'index'])
-->name('index.cotegoria');
-
-Route::get('/categorias', [CategoriasController::class, 'store'])
-->name('store.cotegoria');
+// TODO categorias
+//? retornando vista
+Route::view('/categorias','modulos.categorias')->middleware('auth')->name('categorias.view');
+//?cargand los datos
+Route::post('/categorias-store', [CategoriasController::class, 'store'])
+->name('store.cotegorias');
 
 
 

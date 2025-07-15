@@ -7,13 +7,8 @@ use Illuminate\Http\Request;
 
 class CategoriasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //retornando la vista
-        return view('index.categorias');
     }
 
     /**
@@ -29,7 +24,9 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd(request('nombre'));
+        Categorias::create(['nombre'=> request('nombre')]);
+        return view('modulos.categorias');
     }
 
     /**
