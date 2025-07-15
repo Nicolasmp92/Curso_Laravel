@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Slide;
 
 class FrontendController extends Controller
 {
     public function inicio(){
-        return view('frontend.inicio');
+        $slide = Slide::all();
+        return view('frontend.inicio', compact('slide'));
     }
 }

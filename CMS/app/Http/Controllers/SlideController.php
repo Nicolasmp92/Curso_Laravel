@@ -66,11 +66,14 @@ class SlideController extends Controller
     }
 
     // Elimina el recurso especificado del almacenamiento.
-    public function destroy(Slide $slide)
+    public function destroy($id)
     {
-    if(Storage::delete('public/'.$slide->imagen)){
-    $slide->delete(); // Eloquent ❤️
-    }
+        $slide = Slide::find($id);
+        // se elimina el registro del almacenamiento esto funciona tanto en local como en produccion todo dependiendo de la configuracion utilizada en config/filesystems.php
+        if ($slide && Storage::disk('public')->delete($slide->imagen)) {
+            //aca se esta eliminando el dato de la BD con elocuent
+        $slide->delete();
+        }
     return redirect()->route('index.slide');
     }
 }

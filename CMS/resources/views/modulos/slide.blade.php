@@ -1,6 +1,8 @@
 {{-- TODO  contenido --}}
 @extends('plantilla')
 @section('content')
+    @vite(['resources/css/slide.css'])
+
     {{-- !Estas son las clasicas miguitas de pan, a mi personalmente me gustan las dejare para configurarlas mas tarde cuendo termine el tutorual --}}
     <div class="content-header">
         <div class="container-fluid">
@@ -36,7 +38,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Cargar Imagen</label>
                                                 <input type="file" name="imagen" accept="images/*"
-                                                    class="form-control-file" onchange="previewImage(event)">
+                                                    class="form-control-file niko" onchange="previewImage(event)">
                                                 @error('image')
                                                     <p>Solo puedes cargar imagenes</p>
                                                 @enderror
@@ -74,16 +76,19 @@
                                             <div class="card h-100">
                                                 <img src="{{ asset('storage/' . $sli->imagen) }}" class="card-img-top"
                                                     alt="...">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $sli->titulo }}</h5>
-                                                    <p class="card-text">{{ $sli->descripcion }}</p>
-                                                    <form method="POST"
-                                                        action="{{ route('eliminar.slide', $sli->id) }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                                    </form>
 
+                                                <div class="card-body">
+                                                        <h5 class="card-title">{{ $sli->titulo }}</h5>
+                                                        <p class="card-text">{{ $sli->descripcion }}</p>
+                                                        <p class="card-text text-bold  mt-0 align-top">
+                                                            {{ $sli->id }}</p>
+                                                        <form method="POST"
+                                                            action="{{ route('eliminar.slide',$sli->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm">Eliminar</button>
+                                                        </form>
                                                 </div>
                                             </div>
                                         </div>

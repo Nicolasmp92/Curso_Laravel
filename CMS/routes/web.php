@@ -1,6 +1,8 @@
 <?php
 
 // TODO controlladores
+
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\MisdatosController;
@@ -21,12 +23,15 @@ Route::view('/panel', '/auth.login')
 Route::get('/inicio', [InicioController::class, 'index']);
 
 
-Route::get('/',[FrontendController::class, 'inicio']);
+
 
 // TODO perfil
 //! Esto es para ir a la ruta (solo muestra una vista, nada mas)
-Route::view('/misdatos', 'modulos.misdatos')
-->name('misdatos.index');
+Route::get('/misdatos', [MisdatosController::class, 'mostrarFormulario'])
+    ->name('misdatos.index')
+    ->middleware('auth');//aca se proteje la ruta, esto quiere decir que si el usuario no esta logeado lo redirige al login
+
+
 
 //! Para cargar los datos desde el controllador MisdatosController
 Route::put('/misdatos',[MisdatosController::class, 'update'])
@@ -51,20 +56,27 @@ Route::delete('/eliminar_usuarios/{id}',[MisdatosController::class,'destroy'])
 
 
 
-
 // TODO Slide
-
 // Mostrar lista de slides
 Route::get('/mostrar-slide',[SlideController::class, 'index'])
 ->name('index.slide');
-// // muestra el formulario para crear
-// Route::get('/fomr-slide',[SlideController::class,'create'])
-// ->name('create.slide');
-// Guardar slide
+//crear
 Route::post('/crear-slide',[SlideController::class,'store'])
 ->name('store.slide');
 // eliminar
-Route::delete('/eliminar_slide/{slide}',[SlideController::class ,'destroy'])
-->name('eliminar.slide');
+Route::delete('/eliminar-slide/{id}', [SlideController::class, 'destroy'])->name('eliminar.slide');
 
 
+
+
+Route::get('/categorias', [CategoriasController::class, 'index'])
+->name('index.cotegoria');
+
+Route::get('/categorias', [CategoriasController::class, 'store'])
+->name('store.cotegoria');
+
+
+
+
+// TODO FONTEND
+Route::get('/',[FrontendController::class, 'inicio']);
