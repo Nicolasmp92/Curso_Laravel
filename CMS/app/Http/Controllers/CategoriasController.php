@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorias;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriasController extends Controller
 {
     public function index()
     {
+        $categorias = Categorias::all();
+        return view('modulos.categorias')->with('categorias', $categorias);
     }
 
     /**
@@ -24,10 +27,10 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request('nombre'));
-        Categorias::create(['nombre'=> request('nombre')]);
-        return view('modulos.categorias');
+        Categorias::create(['nombre' => $request->nombre]);
+        return redirect()->route('categorias.show');
     }
+
 
     /**
      * Display the specified resource.
@@ -48,16 +51,21 @@ class CategoriasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categorias $categorias)
+    public function update(Request $request, Categorias $categoria)
     {
-        //
+        $categoria->nombre = $request->nombre;
+        $categoria->save();
+
+        return redirect()->route('categorias.show');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorias $categorias)
+    public function destroy(Categorias $categoria)
     {
-        //
+        $categoria->id = $categoria->delete();
+        return redirect()->route('categorias.show');
     }
 }
