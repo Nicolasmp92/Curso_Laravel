@@ -39,7 +39,7 @@
 
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 text-center">
             <a href="#" style="color: black;">
-                <h3>Viajes por {{$categoria -> nombre}}}</h3>
+                <h3>Viajes por {{$categoria -> nombre}}</h3>
             </a>
         </div>
     @endforeach

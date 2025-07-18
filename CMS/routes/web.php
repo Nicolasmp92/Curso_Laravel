@@ -96,14 +96,34 @@ Route::delete('/categorias-delete/{categoria}',[CategoriasController:: class, 'd
 
 // TODO excursiones
 // ? retornando visa
-Route::view('/excursiones','modulos.excursiones')
-->middleware('auth')
-->name('excursiones.view');
+// Route::view('/excursiones','modulos.excursiones')
+// ->middleware('auth')
+// ->name('excursiones.view');
 
-// ? retornando vista ocn datos
+// ? retornando vista con datos
 Route::get('/excursiones-show',[ExcursionesController::class, 'index'])
 ->middleware('auth')
 ->name('excursiones.show');
+
+// ? crear excursiones
+Route::get('/excursiones-create',[ExcursionesController::class, 'create'])
+->middleware('auth')
+->name('excursiones.create');
+
+// ? almacenar
+Route::post('/excursiones-store',[ExcursionesController::class, 'store'])
+->middleware('auth')
+->name('excursiones.store');
+
+// ? Eliminar
+Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destroy'])
+->middleware('auth')
+->name('excursiones.delete');
+
+// ?editar
+Route::get('/excursion/{excu}/edit',[ExcursionesController::class, 'edit'])
+->middleware('auth')
+->name('excursion');
 
 
 // TODO FONTEND

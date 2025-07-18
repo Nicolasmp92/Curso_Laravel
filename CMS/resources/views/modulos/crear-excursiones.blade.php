@@ -7,6 +7,9 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Crear Excursiones</h1>
+                      <div class="row">
+                    <a href="{{route('excursiones.show')}}" class="btn btn-dark"><i class="fa fa-arrow-left"></i> Volver</a>
+                      </div>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -28,26 +31,39 @@
 
 
 
-                            <div class="col-md-6 col-md">
+                            <div class="col-md-9 col-md mx-auto">
 
-                            <form  action="#" method="post">
+                            <form
+                                    action="{{route('excursiones.store')}}"
+                                    method="post"
+                                    enctype="multipart/form-data">
                                 @csrf
                                 @method('post')
-                                <div class="form-group">
-                                    <label class="control-label"> Id</label>
-                                    <input class="form-control" type="text" placeholder="Id Categoria" >
-                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label"> Titulo</label>
-                                    <input class="form-control" type="text" placeholder="Id Categoria" >
+                                    <input name="titulo" class="form-control" type="text" placeholder="Titulo" >
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label"> Categoria</label>
+                                    <select class="custom-select" name="id_categoria">
+                                        <option selected disabled> Seleccione... </option>
+                                        @foreach ($categorias as $categoria)
+                                        <option value="{{$categoria->id}}"> {{$categoria->nombre}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label"> Descripcion</label>
-                                    <input class="form-control" type="text" placeholder="Id Categoria" >
+                                    <textarea class="form-control" name="descripcion" cols="3" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label"> portada</label>
-                                    <input class="form-control" type="text" placeholder="Id Categoria" >
+                                    <label class="control-label"> Portada</label>
+                                    <input accept="image/*"  name="portada" class="form-control pb-5 bg-dark" type="file" placeholder="Id Categoria" >
+                                </div>
+                                <hr class="mt-5">
+                                <div class="col-m-6">
+                                    <button class="btn btn-outline-secondary btn-sm btn-block" type="submit"> Crear</button>
                                 </div>
                             </form>
 

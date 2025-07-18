@@ -13,7 +13,11 @@ class SlideController extends Controller
     // Muestra una lista del recurso.
     public function index()
     {
-        $slide =  DB::select('select * from slide');
+        // $slide =  DB::select('select * from slide');
+        $slide = Slide::orderBy('id', 'Desc')
+        ->get();
+
+
         return view ('modulos.slide')->with('slide',$slide );
     }
 
@@ -27,17 +31,17 @@ class SlideController extends Controller
    public function store(Request $request)
 {
     $datos = $request->validate([
-        'titulo' => ['required', 'string', 'max:255'],
-        'descripcion' => ['required', 'string', 'max:255'],
-        'imagen' => ['required', 'image'],
+        'titulo'        => ['required', 'string', 'max:255'],
+        'descripcion'   => ['required', 'string', 'max:255'],
+        'imagen'        => ['required', 'image'],
     ]);
 
     $rutaImg = $request->file('imagen')->store('imagen-prueba', 'public');
 
     DB::table('slide')->insert([
-        'titulo' => $datos['titulo'],
-        'descripcion' => $datos['descripcion'],
-        'imagen' => $rutaImg,
+        'titulo'        => $datos['titulo'],
+        'descripcion'   => $datos['descripcion'],
+        'imagen'        => $rutaImg,
     ]);
     // dd($datos, $rutaImg);
 

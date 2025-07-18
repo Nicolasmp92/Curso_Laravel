@@ -25,24 +25,25 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="" method="post" novalidate="" velue="">
+                            <form action="{{ route('crear-usuarios') }}" method="post">
                                 @csrf
+
+
                                 <div class="form-group ">
-                                    </lable> Nombre:<lable>
+                                    </lable> Nombre: <span class="text-danger">*</span><lable>
                                         <input type="text" name="name"
-                                            class="form-control @error('name') is-invalid @enderror">
-                                        @error('name')
+                                            class="form-control @error('name') is-invalid @enderror" required="">
+                                        {{-- @error('name')
                                             <p class="mt-2 alert alert-danger">Error al digitar el usuario</p>
-                                        @enderror
+                                        @enderror --}}
 
                                 </div>
-                                <div class="form-group  ">
-                                    <lable>Email:</lable>
-                                    <input type="email" name="email" value=""
-                                        class="form-control @error('email') is-invalid @enderror">
-                                    @error('email')
-                                        <p class="mt-2 alert alert-danger"> El Email ya existe. </p>
-                                    @enderror
+                                <div class="form-group ">
+                                    <lable>Email: <span class="text-danger">*</span></lable>
+                                    <input type="email" name="email"class="form-control @error('email') is-invalid @enderror" required="">
+                                    {{-- @error('email')
+                                        <p class="mt-2 alert alert-danger">  </p>
+                                    @enderror --}}
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">Rol:</label>
@@ -57,12 +58,12 @@
                                     @enderror
                                 </div>
                                 <div class="form-group ">
-                                    <lable>Clave:</lable>
+                                    <lable>Clave: <span class="text-danger">*</span> </lable>
                                     <input type="password" name="password" value=""
-                                        class="form-control @error('password') is-invalid @enderror">
-                                    @error('password')
+                                        class="form-control @error('password') is-invalid @enderror" required="">
+                                    {{-- @error('password')
                                         <p class="mt-2 alert alert-danger"> la Clave deve contener 8 carcteres minimo </p>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
 
                                 <div class="form-group">

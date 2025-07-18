@@ -60,10 +60,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route ('excursiones.view')}}" class="nav-link ">
+                            <a href="{{route ('excursiones.show')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-bus"></i>
                                 <p>
-                                    Excursixones
+                                    Excursiones
                                 </p>
                             </a>
                         </li>

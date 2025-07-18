@@ -45,7 +45,7 @@
 
 
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-md mx-auto">
                                 <div class="row">
                                     @foreach ($categorias as $categoria)
                                     {{-- ? formulario de actualizacion --}}

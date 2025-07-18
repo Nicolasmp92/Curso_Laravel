@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Builder\Function_;
 
 class MisdatosController extends Controller
 {
@@ -17,8 +17,11 @@ class MisdatosController extends Controller
 
     public function index()
     {
-        $usuarios =  DB::select('select * from users');
-        return view('modulos.usuarios')
+
+        $usuarios = User::orderBy('id', 'Desc')->get();
+
+
+            return view('modulos.usuarios')
             ->with('usuarios', $usuarios);
     }
 
@@ -35,13 +38,26 @@ class MisdatosController extends Controller
             'password'  => ['required ', 'string', 'min:5'],
             'rol'       => ['required'],
         ]);
-        DB::table('users')->insert([
-            'name'      => $datos['name'],
-            'email'     => $datos['name'],
-            'rol'       => $datos['rol'],
-            'password'  => Hash::make($datos['password'])
-        ]);
-        return redirect('usuarios');
+
+
+        $users = new User();
+        $users->name    = $request->name;
+        $users->email   = $request->email;
+        $users->rol     = $request->rol;
+        $users->password = Hash::make($request->password);
+        $users->save();
+
+        // DB::table('users')->insert([
+        //     'name'      => $datos['name'],
+        //     'email'     => $datos['name'],
+        //     'rol'       => $datos['rol'],
+        //     'password'  => Hash::make($datos['password'])
+        // ]);
+
+        return redirect()->route('users.index');
+
+
+
     }
 
     public function show(string $id) {}

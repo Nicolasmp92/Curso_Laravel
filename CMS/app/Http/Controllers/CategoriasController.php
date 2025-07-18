@@ -10,6 +10,12 @@ class CategoriasController extends Controller
 {
     public function index()
     {
+        // TODO Existen dos formas
+
+        // $categorias =  DB::select('select * from categorias');
+        // return view ('modulos.categorias')->with('slide',$categorias );
+
+
         $categorias = Categorias::all();
         return view('modulos.categorias')->with('categorias', $categorias);
     }
