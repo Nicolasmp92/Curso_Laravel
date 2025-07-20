@@ -56,8 +56,7 @@
                                         </form>
                                     </div>
                                     <div class="col-6 px-5">
-                                        <img class="img-responsive border border-success" id="imagePreview"
-                                            style="width: 25rem; heith:25rem;" </div>
+                                        <img class="img-responsive border border-success h-75 w-75 " id="imagePreview">
                                     </div>
                                 </div>
 

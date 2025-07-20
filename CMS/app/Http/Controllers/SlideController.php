@@ -28,7 +28,7 @@ class SlideController extends Controller
     }
 
     // Almacena un nuevo recurso en el almacenamiento.
-   public function store(Request $request)
+    public function store(Request $request)
 {
     $datos = $request->validate([
         'titulo'        => ['required', 'string', 'max:255'],
