@@ -39,7 +39,7 @@
                             <a href="{{route('users.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    usuarios
+                                    Usuarios
                                 </p>
                             </a>
                         </li>
@@ -71,7 +71,7 @@
                             <a href="{{route ('misdatos.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>
-                                    mensajes
+                                    Mensajes
                                 </p>
                             </a>
                         </li>

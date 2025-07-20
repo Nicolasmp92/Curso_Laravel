@@ -7,6 +7,7 @@ use App\Http\Controllers\ExcursionesController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\MisdatosController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SlideController;
 use Doctrine\DBAL\Driver\Middleware;
 // TODO Facades
@@ -36,23 +37,27 @@ Route::get('/inicio', [InicioController::class, 'index'])
 
 
 
-// TODO datos de perfil
+// TODO datos de PERFIL
 //? Esto es para ir a la ruta (solo muestra una vista, nada mas)
-Route::get('/misdatos', [MisdatosController::class, 'mostrarFormulario'])->name('misdatos.index')->middleware('auth');
+Route::get('/misdatos', [MisdatosController::class, 'index'])->middleware('auth')->name('misdatos.index');
 //? Para cargar los datos desde el controllador MisdatosController
-Route::put('/misdatos',[MisdatosController::class, 'update'])->name('misdatos.editar.usuarios');
+Route::put('/misdatos',[MisdatosController::class, 'update'])->middleware('auth')->name('misdatos.editar.perfil');
+// ?ruta pra la actualizacion de la imagen de perfil
+Route::post('/misdatos/imagen', [MisdatosController::class, 'actualizarImagen'])->middleware('auth')->name('misdatos.imagen');
+// ? para el cambio de la contraseña del perfil
+Route::get('/misdatos-pass',[MisdatosController::class, 'ChangePass'])->middleware('auth')->name('misdatos.change.pass');
+// ? ruta para cambiar la contraseña
+Route::put('/misdatos-pass', [MisdatosController::class, 'updatePass'])->middleware('auth')->name('misdatos.update.pass');
 
 
 
 
-// TODO para administrar usuarios
-Route::get('/usuarios',[MisdatosController::class,'index'])->name('users.index');
 
-Route::post('/crear-usuarios',[MisdatosController::class,'store'])->name('crear-usuarios');
-
-Route::get('/crear-usuarios',[MisdatosController::class,'create'])->name('crear-usuarios');
-
-Route::delete('/eliminar_usuarios/{id}',[MisdatosController::class,'destroy'])->name('usuarios.destroy');
+// TODO para administrar USUARIOS
+Route::get('/usuarios',[UsersController::class,'index'])->name('users.index');
+Route::post('/crear-usuarios',[UsersController::class,'store'])->name('crear-usuarios');
+Route::get('/crear-usuarios',[UsersController::class,'create'])->name('crear-usuarios');
+Route::delete('/eliminar_usuarios/{id}',[UsersController::class,'destroy'])->name('usuarios.destroy');
 
 
 

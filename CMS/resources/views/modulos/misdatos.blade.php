@@ -9,110 +9,108 @@ cuendo termine el tutorual --}}
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">MIS DATOS</h1>
+                <h1 class="m-0 text-dark">MI PERFIL</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboar/Mis Datos</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
+                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                    <li class="breadcrumb-item active">Mis datos</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
-
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body pt-5">
+
+                <div class="card shadow">
+                    <div class="card-header mb-2">
+                        <div class="row align-items-end">
+                            <div class="col">
+                            <h2>Actualiza tus datos</h2>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('misdatos.change.pass') }}" class="btn btn-outline-danger btn-md">
+                                    <i class="fa fa-key"></i>
+                                    Cambiar Contraseña
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
 
-                            {{-- ! Formulario imagen --}}
-                            <div class="col-md-4">
-                                <form action="" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        {{--? Imagen con hover --}}
-                                        <div class="mb-2 d-flex img-cont">
-                                            <img src="..." class="rounded shadow img-profile mx-auto d-block"
-                                                accept="images/*" id="imagePreview">
-                                        </div>
-
-                                        {{--? Input para subir imagen --}}
-                                        <input class="form-control" for="customFile" type="file" name="image"
-                                            onchange="previewImage(event)">
-
-                                        {{--? Mensaje de error --}}
-                                        @error('image')
-                                        <p class="text-danger">Error al cargar la imagen</p>
-                                        @enderror
+                            {{-- Imagen de perfil (izquierda) --}}
+                            <div class="col-6 col-md-4 text-center px-5">
+                                <div class="card bg-dark text-white shadow">
+                                    <div class="card-header text-center">
+                                        Imagen de Perfil
                                     </div>
-                                    <hr>
-                                    {{-- ? guardar imagen --}}
-                                    <div class="form-group mt-3">
-                                        <button type="submit" class="btn btn-outline-secondary btn-block">
-                                            Guardar Imagen
-                                        </button>
+                                    <div class="card-body text-center">
+                                        {{-- !formulario para actualizar imagen de perfil --}}
+                                        <form action="{{ route('misdatos.imagen') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            {{-- Mostrar imagen actual o una por defecto --}}
+                                            <div class="mb-3 img-cont">
+                                                <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('images/default-user.png') }}"
+                                                    alt="Imagen actual" class="img-thumbnail img-profile"
+                                                    id="imagePreview"
+                                                    style="width: 150px; height: 150px; object-fit: cover;">
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <input type="file" class="form-control-file border" name="image"
+                                                accept="image/*" onchange="previewImage(event)">
+                                            </div>
+                                            <button type="submit" class="btn btn-outline-light">
+                                                Cambiar Foto
+                                            </button>
+                                            @error('image')
+                                                <div class="alert alert-danger mt-5" role="alert">Seleccione una imagen para cargar</div>
+                                            @enderror
+                                        </form>
                                     </div>
-                                </form>
+                                </div>
                             </div>
 
-
-
-                            {{-- ! Formulario para datos de usuario --}}
-                            <div class="col-md-8 px-5">
-                                <form action="{{ route('misdatos.editar.usuarios') }}" method="POST">
+                            {{-- Formulario datos (derecha) --}}
+                            <div class="col-sm-6 col-md-8">
+                                <form action="{{ route('misdatos.editar.perfil') }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <div class="form-group"> {{--! Nombre --}}
+
+                                    <div class="form-group">
                                         <label>Nombre:</label>
                                         <input type="text" name="name" value="{{ auth()->user()->name }}"
-                                            class="form-control">
+                                            class="form-control" required="">
                                         @error('name')
-                                        <p class="text-danger">Error al digitar el nombre.</p>
+                                        <p class="text-danger">Error, campo vacio.</p>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">{{--! Email --}}
+                                    <div class="form-group">
                                         <label>Email:</label>
                                         <input type="email" name="email" value="{{ auth()->user()->email }}"
                                             class="form-control">
                                         @error('email')
-                                        <p class="text-danger">El Email ya existe.</p>
+                                        <p class="text-danger">Ingrese un email.</p>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">{{--! Telefono --}}
-                                        <label>Telefono:</label>
+                                    <div class="form-group">
+                                        <label>Teléfono:</label>
                                         <input type="tel" name="telefono" value="{{ auth()->user()->telefono }}"
                                             class="form-control">
                                         @error('telefono')
-                                        <p class="text-danger">El Email ya existe.</p>
+                                        <p class="text-danger">Error en el teléfono.</p>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">{{--! Contraseña Actual--}}
-                                        <label>Contraseña actual: <span class="text-danger">*</span> </label>
-                                        <input type="password" name="password" class="form-control">
-                                        @error('password')
-                                        <p class="text-danger">Error en la contraseña, vuelva a intentarlo.</p>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">{{--! Contraseña Nueva--}}
-                                        <label>Contraseña Nueva: <span class="text-danger">*</span> </label>
-                                        <input type="password" name="password" class="form-control">
-                                        @error('password')
-                                        <p class="text-danger">Error en la contraseña, vuelva a intentarlo.</p>
-                                        @enderror
-                                    </div>
-
-                                    <hr>
-                                    <div class="form-group mt-3">{{--! Guardar --}}
+                                    <hr class="pt-3">
+                                    <div class="form-group mt-4">
                                         <button type="submit" class="btn btn-outline-secondary btn-block">
                                             Guardar
                                         </button>
@@ -120,37 +118,52 @@ cuendo termine el tutorual --}}
                                 </form>
                             </div>
 
+                        </div> {{-- row interna --}}
+
+                    </div> {{-- card-body --}}
+                </div> {{-- card --}}
+
+            </div> {{-- col-lg-12 --}}
+        </div> {{-- row --}}
+    </div> <!-- /.container-fluid -->
 
 
-                        </div>{{--row--}}
-
-                    </div> {{--card body--}}
-                </div> {{--card--}}
-            </div>{{--col-lg-12--}}
-
-        </div> {{--row--}}
-    </div><!-- /.container-fluid -->
+{{--! MENSAJES  DE FONFIRMACION --}}
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 
 
 </section>
 
+<script>
+    setTimeout(function () {
+        let alert = document.querySelector('.alert-dismissible');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+            setTimeout(() => alert.remove(), 500);
+        }
+    }, 3000);
+</script>
 
+
+
+{{-- Script para vista previa de la imagen de perfil--}}
 <script>
     function previewImage(event) {
-            const input = event.target;
-            const imagePreview = document.getElementById('imagePreview');
-            const file = input.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            } else {
-                imagePreview.src = ""; // Limpiar vista previa si no hay archivo
-            }
-        }
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById('imagePreview');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
+
 @endsection
