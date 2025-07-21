@@ -13,7 +13,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
@@ -28,24 +29,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        @include('modulos.cabecera')
-        @include('modulos.menu')
 
-        {{--* wreapper contiene todo sidebar header  y content-wrapper el contenido esto es importante para que el collapse de wrapper funcione correctamente --}}
-        <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-            @yield('content')
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- ./wrapper -->
+    {{-- scripts --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -81,6 +68,31 @@
     <script src="dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
+
+
+</head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+    <div class="wrapper">
+        @include('modulos.cabecera')
+        @include('modulos.menu')
+
+        {{-- ! wreapper contiene todo sidebar header  y content-wrapper el contenido esto es importante para que el collapse de wrapper funcione correctamente --}}
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- ./wrapper -->
+    @include('partials.alerts')
+    @include('sweetalert::alert')
 </body>
 
 </html>

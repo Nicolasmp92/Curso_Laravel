@@ -4,51 +4,52 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;//!importar el modelo de users para usar
+use Illuminate\Support\Facades\Hash;// para el uso de hash 👇
 
 class UsersController extends Controller
 {
-    public function index()
-    {
+    // !listando usuarios
+    public function index(){
         $usuarios = User::orderBy('id', 'Desc')->get();
         return view('modulos.usuarios')->with('usuarios', $usuarios);
-
     }
-
-    public function create()
-    {
+    // !retornando vista para la creacion de usuarios
+    public function create(){
         return view('modulos.crear-usuarios');
     }
-
-
-    public function store(Request $request)
-    {
-        $datos = request()->validate([
+    // ! Crear nuevo usuario
+    public function store(Request $request){
+        $request->validate([
         'name'      => 'required|string|max:255',
-        'email'     => 'required|email|unique:users,email,' . auth()->id(), //! . auth()->id(), esto es para que laravel no choque con el mismo correo si el correo ya existe
-        'image'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'email'     => 'required|email|unique:users,email,',
         'telefono'  => 'nullable|string|max:20',
-        'estado'    => 'nullable|boolean',
-        'password'  => 'nullable|min:6|confirmed',//! confirmed es para validar que esten bien escritos (password_confirmation) en el formulario para que funcione
+        'rol'       => 'required|string|max:30',
+        'password'  => 'nullable|min:6',
+        //* confirmed es un valor en la validacion, para comparar si la pass coincide
         ]);
 
-        // $users = new User(); esto es util pero si se esta creando un nuvo usuario desde cero
-        $user           = new User(); // esto aplica mas al caso actual ya que se estand editando los datos del usuario actual (logeado)
+
+        $user           = new User();
         $user->name     = $request->name;
         $user->email    = $request->email;
+        $user->telefono = $request->telefono;
         $user->rol      = $request->rol;
-        $user->password = Hash::make($request->password);
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
-
-        if ($request->hasFile('image')) {
-            $filename = time() . '.' . $request->image->extension();
-            $request->image->storeAs('public/usuarios', $filename);
-            $user->image = 'usuarios/' . $filename;
-        }
+        $user->password = Hash::make($request->password); // 🔐 importante
         $user->save();
-        return redirect()->route('users.index');
+
+        //! 👇 por esta rason se utiliza esto 👆 ya que asi se esesifica el dato asignado al request
+
+        //! User::create($request->all()); solo en caso de que los campos
+        //! sean exactos a los del modelo, de no ser asi, no sabe donde asignarlo y se cae
+        // *Tambien se puede
+        //* User::create([
+        //*     'name'      => $request->name,
+        //*     'email'     => $request->email,
+        //*     'telefono'  => $request->telefono,
+        //*     'rol'       => $request->rol,
+        //*     'password'  => Hash::make($request->password), // 🔐
+        //* ]);
+        return redirect()->route('usuarios.index')->with('toast_success','Usuario Creado con exito!😉');
     }
 
     public function show(string $id)
@@ -58,19 +59,38 @@ class UsersController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('modulos.editar-usuarios',compact('user'));
     }
 
+    // !actualozar usuario seleccionado
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $request->validate([
+        'name'      => 'required|string|max:255',
+        'email'     => 'required|email|unique:users,email,'. $user->id,
+        'telefono'  => 'nullable|string|max:20',
+        'rol'       => 'required|string|max:30',
+        'password'  => 'nullable|min:6',
+        ]);
+
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->telefono = $request->telefono;
+        $user->rol      = $request->rol;
+        $user->password = Hash::make($request->password); // 🔐 importante
+        $user->update();
+
+        return redirect()->route('usuarios.index')->with('toast_success','Usuario Actualizado con exito!😉');
     }
 
-
-    public function destroy($id)
-    {
+    // ! Eliminar Usuarios
+    public function destroy($id){
+        //? Aca no es mucho lo que hay que desarrollar, se intersepta el boton de eliminar con JS
+        //? para asi confirmar su eliminacion con sweeet alert y luego se envia el Id Aca 👇
         $user = User::findOrFail($id);
-        $user = User::delete();
-        return redirect()->route('users.index')->with('success', 'Usuario eliminado');
+        $user -> delete();//?no es necesario volver a llamr al modelo (User::delete)
+        return redirect()->route('users.index')->with('toast_warning', 'Usuario eliminado correctamente');
     }
 }

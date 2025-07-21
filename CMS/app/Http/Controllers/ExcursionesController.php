@@ -35,8 +35,7 @@ class ExcursionesController extends Controller
             'portada'       => $rutaImg,
         ]);
 
-        return redirect()->route('excursiones.create');
-        // ->with('success', 'Excursión creada con éxito') este es un mensaje de alaerta que se le puede agregar
+        return redirect()->route('excursiones.create')->with('toast_success', 'Excursión creada con éxito');
     }
 
     public function show(Excursiones $excursiones)
@@ -44,9 +43,11 @@ class ExcursionesController extends Controller
         //
     }
 
-    public function edit(Excursiones $excu)
+    public function edit($id)
     {
-        // return view('modulos.editar-excursion',compact('excu'));
+        $excu = Excursiones::findOrFail($id);
+        $categorias = Categorias::all();
+        return view('modulos.editar-excursion',compact('excu'))->with('categorias', $categorias);
     }
 
     public function update(Request $request, Excursiones $excursiones)
@@ -54,10 +55,10 @@ class ExcursionesController extends Controller
         //
     }
 
-    public function destroy(Excursiones $excu)
+    public function destroy( $id)
     {
-        $excu->id = $excu->delete();
-        return redirect()->route('excursiones.show');
-        // ->with('warning', 'Excursión eliminada')
+        $excu = Excursiones::findOrFail($id);
+        $excu -> delete();
+        return redirect()->route('excursiones.index')->with('toast_success', 'Excursión eliminada!');
     }
 }

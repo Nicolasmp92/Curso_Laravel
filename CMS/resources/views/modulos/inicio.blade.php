@@ -10,8 +10,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                                <li class="breadcrumb-item active">Home</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
+                                    <h1 class="text-info text-bold"> Bienvenidos</h1>
                                 </div>
                             </div>
                         </div>

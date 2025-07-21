@@ -14,8 +14,7 @@ class SlideController extends Controller
     public function index()
     {
         // $slide =  DB::select('select * from slide');
-        $slide = Slide::orderBy('id', 'Desc')
-        ->get();
+        $slide = Slide::orderBy('id', 'Desc')->get();
 
 
         return view ('modulos.slide')->with('slide',$slide );
@@ -30,24 +29,21 @@ class SlideController extends Controller
     // Almacena un nuevo recurso en el almacenamiento.
     public function store(Request $request)
 {
+
     $datos = $request->validate([
         'titulo'        => ['required', 'string', 'max:255'],
         'descripcion'   => ['required', 'string', 'max:255'],
         'imagen'        => ['required', 'image'],
     ]);
 
+
+    $datos =  new Slide();
+    $datos->titulo =  $request->titulo;
+    $datos->descripcion =  $request->descripcion;
     $rutaImg = $request->file('imagen')->store('imagen-prueba', 'public');
 
-    DB::table('slide')->insert([
-        'titulo'        => $datos['titulo'],
-        'descripcion'   => $datos['descripcion'],
-        'imagen'        => $rutaImg,
-    ]);
-    // dd($datos, $rutaImg);
+    $datos-> save();
 
-    // return view ('slide');
-    return  Redirect::route('index.slide');
-    // return redirect()->route('index.slide');
 }
 
 

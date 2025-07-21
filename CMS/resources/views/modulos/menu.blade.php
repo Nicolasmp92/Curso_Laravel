@@ -27,7 +27,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="{{route ('misdatos.index')}}" class="nav-link">
+                            <a href="{{route ('inicio.home')}}" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Inicio
@@ -36,7 +36,7 @@
                         </li>
                         <li class="nav-item">
                             {{-- !aca el formulario para mostrar usuarios --}}
-                            <a href="{{route('users.index')}}" class="nav-link ">
+                            <a href="{{route('usuarios.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Usuarios
@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route ('excursiones.show')}}" class="nav-link ">
+                            <a href="{{route ('excursiones.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-bus"></i>
                                 <p>
                                     Excursiones

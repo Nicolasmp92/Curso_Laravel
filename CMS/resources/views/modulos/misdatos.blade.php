@@ -42,7 +42,7 @@ cuendo termine el tutorual --}}
                     <div class="card-body">
                         <div class="row">
 
-                            {{-- Imagen de perfil (izquierda) --}}
+                            {{--! Imagen de perfil --}}
                             <div class="col-6 col-md-4 text-center px-5">
                                 <div class="card bg-dark text-white shadow">
                                     <div class="card-header text-center">
@@ -55,15 +55,20 @@ cuendo termine el tutorual --}}
                                             @csrf
                                             {{-- Mostrar imagen actual o una por defecto --}}
                                             <div class="mb-3 img-cont">
-                                                <img src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('images/default-user.png') }}"
-                                                    alt="Imagen actual" class="img-thumbnail img-profile"
+                                                <img
+                                                src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('images/default-user.png') }}"
+                                                    alt="Imagen actual"
+                                                    class="img-thumbnail img-profile"
                                                     id="imagePreview"
                                                     style="width: 150px; height: 150px; object-fit: cover;">
                                             </div>
 
                                             <div class="mb-3">
-                                                <input type="file" class="form-control-file border" name="image"
-                                                accept="image/*" onchange="previewImage(event)">
+                                                <input type="file"
+                                                class="form-control-file border"
+                                                name="image"
+                                                accept="image/*"
+                                                onchange="previewImage(event)">
                                             </div>
                                             <button type="submit" class="btn btn-outline-light">
                                                 Cambiar Foto
@@ -76,7 +81,7 @@ cuendo termine el tutorual --}}
                                 </div>
                             </div>
 
-                            {{-- Formulario datos (derecha) --}}
+                            {{--! Formulario datos --}}
                             <div class="col-sm-6 col-md-8">
                                 <form action="{{ route('misdatos.editar.perfil') }}" method="POST">
                                     @csrf
@@ -84,8 +89,10 @@ cuendo termine el tutorual --}}
 
                                     <div class="form-group">
                                         <label>Nombre:</label>
-                                        <input type="text" name="name" value="{{ auth()->user()->name }}"
-                                            class="form-control" required="">
+                                        <input type="text"
+                                                name="name"
+                                                value="{{ auth()->user()->name }}"
+                                                class="form-control" required="">
                                         @error('name')
                                         <p class="text-danger">Error, campo vacio.</p>
                                         @enderror
@@ -117,42 +124,14 @@ cuendo termine el tutorual --}}
                                     </div>
                                 </form>
                             </div>
-
                         </div> {{-- row interna --}}
-
                     </div> {{-- card-body --}}
                 </div> {{-- card --}}
 
             </div> {{-- col-lg-12 --}}
         </div> {{-- row --}}
     </div> <!-- /.container-fluid -->
-
-
-{{--! MENSAJES  DE FONFIRMACION --}}
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
-
-
 </section>
-
-<script>
-    setTimeout(function () {
-        let alert = document.querySelector('.alert-dismissible');
-        if (alert) {
-            alert.classList.remove('show');
-            alert.classList.add('fade');
-            setTimeout(() => alert.remove(), 500);
-        }
-    }, 3000);
-</script>
-
-
 
 {{-- Script para vista previa de la imagen de perfil--}}
 <script>

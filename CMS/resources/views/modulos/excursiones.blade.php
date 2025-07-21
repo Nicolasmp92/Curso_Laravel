@@ -38,50 +38,52 @@
                                             Tabla Excursiones
                                         </caption>
 
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Categoria</th>
-                                                <th>Titulo</th>
-                                                <th>Descripcion</th>
-                                                <th class="text-center">Portada</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Categoria</th>
+                                            <th>Titulo</th>
+                                            <th>Descripcion</th>
+                                            <th class="text-center">Portada</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                    @foreach ($excursiones as $excu)
+                                        @foreach ($excursiones as $excu)
+                                            <tr class="table-primary">
+                                                <td scope="row">{{ $excu->id }}</td>
+                                                <td>{{ $excu->categoria->nombre }}</td>
+                                                <td>{{ $excu->titulo }}</td>
+                                                <td>{{ Str::limit($excu->descripcion, 70) }}</td>
+                                                <td class="w-25 h-25 text-center">
+                                                    <img class="img img-thumbnail w-lg-auto  h-lg-auto  w-50 h-25"
+                                                        src=" {{ asset('storage/' . $excu->portada) }}">
+                                                </td>
+                                                <td>
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            {{-- ! EDITAR --}}
+                                                            <a href="{{ route('excursiones.edit',$excu->id,'/edit') }}"
+                                                                class="btn btn-warning">
+                                                                <i class="fa fa-edit"> Editar</i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-inline-item">
+                                                            <form method="POST"
+                                                                action="{{ route('excursiones.delete', $excu->id) }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="button" class="btn btn-danger btn-block mt-2"
+                                                                    style="min-width: 50px"
+                                                                    onclick="confirmarEliminacion({{ $excu->id }})">
+                                                                    <i class="fa fa-trash"></i> Eliminar
+                                                                </button>
 
-                                        <tr class="table-primary">
-                                            <td scope="row">{{$excu->id}}</td>
-                                            <td>{{$excu->categoria->nombre}}</td>
-                                            <td>{{$excu->titulo}}</td>
-                                            <td>{{Str::limit($excu->descripcion,70)}}</td>
-                                            <td class="w-25 h-25 text-center">
-                                                <img class="img img-thumbnail w-lg-auto  h-lg-auto  w-50 h-25" src=" {{ asset('storage/' . $excu->portada) }}" ></td>
-                                            <td>
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item">
-                                                    <a href="{{route('excursion/'.$excu->id.'/edit')}}">
-                                                        <button type="submit" class="btn btn-warning btn-block mt-2" style="min-width: 50px">
-                                                            <i class="fa fa-edit"></i>
-                                                            <span class="d-none d-lg-inline"> Editar</span>
-                                                        </button>
-                                                    </a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                    <form method="POST" action="{{route('excursiones.delete',$excu->id)}}">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-danger btn-block mt-2" style="min-width: 50px"
-                                                        onclick="return confirm('¿Estás seguro de eliminar esta Excursion?')">
-                                                            <i class="fa fa-trash"></i>
-                                                            <span class="d-none d-lg-inline"> Eliminar</span>
-                                                        </button>
-                                                    </form>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
 

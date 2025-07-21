@@ -18,9 +18,8 @@
         {{-- usuario nombre --}}
         <div class="user-panel  d-flex">
 
-            <div class="image">
-                <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-circle elevation-2"
-                width="32" height="32" alt="User Image">
+            <div class="image w-20 h-20">
+                <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-circle elevation-2" alt="User Image">
             </div>
 
             <div class="info text-muted">

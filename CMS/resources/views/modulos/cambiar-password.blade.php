@@ -28,7 +28,9 @@
             <div class="col-md-6">
                 <div class="card shadow">
                     <div class="card-header">
-                        <a href="{{route('misdatos.index')}}" class="btn btn-outline-secondary"><i class="fa fa-arrow-left"></i> Volver</a>
+                        <a href="{{route('misdatos.index')}}" class="btn btn-outline-secondary">
+                            <i class="fa fa-arrow-left"></i> Volver
+                        </a>
                     </div>
                     <div class="card-body">
 
