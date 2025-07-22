@@ -3,6 +3,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof toastr !== 'undefined') {
             @if (session('toast_success'))
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                };
                 toastr.success(`{{ session('toast_success') }}`);
             @endif
 
@@ -37,12 +41,13 @@
 
 
 {{-- ===================== ❗ SWEETALERT2 Confirmación Eliminación ===================== --}}
+
 <script>
-    function confirmarEliminacion(id) {
+    function confirmarEliminacion(id, tipo = 'registro', nombre = '') {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "¡Esto eliminará el usuario permanentemente!",
-            icon: 'warning',
+            html: `¡Esto eliminará: <strong>${tipo}</strong>${nombre ? ' <strong style="font-style: italic;">"' + nombre + '"</strong>' : ''} permanentemente!`,
+            icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#6c757d',
@@ -50,7 +55,6 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Enviar el formulario con el ID correspondiente
                 document.getElementById('form-eliminar-' + id).submit();
             }
         });

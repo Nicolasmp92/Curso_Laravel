@@ -6,21 +6,18 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class MisdatosController extends Controller
 {
-
-
-
     //! Actualizar foto de perfil 🔄
     public function actualizarImagen(Request $request){
         $request->validate([
-            'image' => 'required|image|max:2048',
+            'image' => 'required|image',
         ]);
-        $user = auth()->user();
+        $user = Auth::user();
         if ($request->hasFile('image')){
             // ? si la imagen existe la elimina
             if($user->image && Storage::disk('public')->exists($user->image)){
@@ -44,8 +41,8 @@ class MisdatosController extends Controller
 
     // ! Cambiar Actualizar datos de perfil 🙍
     public function update(Request $request){
-        $user = auth()->user(); // Usuario autenticado
-
+        //*$user = auth()->user();  Usuario autenticado
+        $user = Auth::user();
         // Validamos los campos
         $datos = $request->validate([
             'name'     => 'required|string|max:255',
@@ -54,17 +51,17 @@ class MisdatosController extends Controller
             'password' => 'nullable|string|min:5|confirmed', // se vuelve opcional
         ]);
 
-        // Asignamos los nuevos valores
-        $user->name     = $datos['name'];
-        $user->email    = $datos['email'];
-        $user->telefono = $datos['telefono'] ?? null; // por si viene vacío
+            // Asignamos los nuevos valores
+            $user->name     = $datos['name'];
+            $user->email    = $datos['email'];
+            $user->telefono = $datos['telefono'] ?? null; // por si viene vacío
 
-        // Solo si viene un password nuevo lo actualizamos
-        if (!empty($datos['password'])) {
-            $user->password = Hash::make($datos['password']);
-        }
+            // Solo si viene un password nuevo lo actualizamos
+            if (!empty($datos['password'])) {
+                $user->password = Hash::make($datos['password']);
+            }
 
-        $user->save();
+            $user->save();
 
         return redirect()->route('misdatos.index')->with('toast_success', 'Datos actualizados correctamente.👌');
     }
@@ -81,8 +78,7 @@ class MisdatosController extends Controller
             'password' => 'required|string|min:6|confirmed', // Debe venir también 'password_confirmation'
         ]);
 
-        $user = auth()->user();
-
+        $user = Auth::user();
         // Verificamos la contraseña actual
         if (!Hash::check($request->current_password, $user->password)) {
             throw ValidationException::withMessages([
@@ -94,7 +90,7 @@ class MisdatosController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('misdatos.index')->with('success', 'Contraseña actualizada correctamente.');
+        return redirect()->route('misdatos.index')->with('toast_success', 'Contraseña actualizada correctamente. 🔑');
     }
 
 

@@ -14,7 +14,10 @@ class SlideController extends Controller
     public function index()
     {
         // $slide =  DB::select('select * from slide');
-        $slide = Slide::orderBy('id', 'Desc')->get();
+        $slide = Slide::orderBy('created_at', 'Desc')
+                        ->limit(20)
+                        ->paginate(10);
+                        //!->get();despues de un paginate no colocar get
 
 
         return view ('modulos.slide')->with('slide',$slide );
@@ -26,25 +29,21 @@ class SlideController extends Controller
         //
     }
 
-    // Almacena un nuevo recurso en el almacenamiento.
-    public function store(Request $request)
-{
-
-    $datos = $request->validate([
-        'titulo'        => ['required', 'string', 'max:255'],
-        'descripcion'   => ['required', 'string', 'max:255'],
-        'imagen'        => ['required', 'image'],
-    ]);
-
-
-    $datos =  new Slide();
-    $datos->titulo =  $request->titulo;
-    $datos->descripcion =  $request->descripcion;
-    $rutaImg = $request->file('imagen')->store('imagen-prueba', 'public');
-
-    $datos-> save();
-
-}
+    // Creando
+    public function store(Request $request){
+        $nslide = $request->validate([
+            'titulo'        => 'required|string|max:255',
+            'descripcion'   => 'required|string|max:255',
+            'imagen'        => 'required|image',
+        ]);
+        $rutaImg = $request->file('imagen')->store('imagen-prueba', 'public');
+        $nslide =  new Slide();
+        $nslide->titulo         =  $request->titulo;
+        $nslide->descripcion    =  $request->descripcion;
+        $nslide->imagen          =  $rutaImg;
+        $nslide->save();
+        return redirect()->route('index.slide')->with('toast_success','imagen creada con existo! 😃');
+    }
 
 
     // Muestra el recurso especificado.
@@ -74,6 +73,6 @@ class SlideController extends Controller
             //aca se esta eliminando el dato de la BD con elocuent
         $slide->delete();
         }
-    return redirect()->route('index.slide');
+    return redirect()->route('index.slide')->with('toast_success','Slide Eliminado exitosamente! ✅');
     }
 }

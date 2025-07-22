@@ -26,10 +26,10 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h2>Complete el Formulario:</h2> --}}
-                        <a href="{{route('users.index')}}" class="btn btn-outline-secondary" ><i class="fa fa-arrow-left"></i> Volver</a>
+                        <a href="{{route('usuarios.index')}}" class="btn btn-outline-secondary" ><i class="fa fa-arrow-left"></i> Volver</a>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('crear-usuarios') }}" method="post" class="px-5">
+                            <form action="{{ route('usuarios.create') }}" method="post" class="px-5">
                                 @csrf
                                 <div class="form-group px-5 ">
                                     <label>Nombre: <span class="text-danger">*</span></label>

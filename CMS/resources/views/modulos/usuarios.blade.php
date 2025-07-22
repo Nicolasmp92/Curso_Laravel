@@ -52,7 +52,7 @@
                                                         @method('delete')
                                                     <button class="btn btn-danger"
                                                         type="button"{{--? se cambia de submit a button para que el formulario no se envia de inmediato sin confirmar--}}
-                                                        onclick="confirmarEliminacion({{ $user->id }})">
+                                                         onclick="confirmarEliminacion('{{ $user->id }}', 'usuario', '{{ $user->name }}')">
                                                             <i class="fa fa-trash"> Eliminar</i>
                                                     </button>
                                                     <a class="btn btn-warning text-white" href="{{route('usuarios.edit',$user->id,'/edit')}}">

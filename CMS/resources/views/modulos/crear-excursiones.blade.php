@@ -38,11 +38,15 @@
 
                                     <div class="form-group">
                                         <label class="control-label"> Titulo</label>
-                                        <input name="titulo" class="form-control" type="text" placeholder="Titulo">
+                                        <input name="titulo"
+                                        class="form-control"
+                                        type="text"
+                                        placeholder="Titulo"
+                                        required="">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label"> Categoria</label>
-                                        <select class="custom-select" name="id_categoria">
+                                        <select class="custom-select" name="id_categoria" required="">
                                             <option selected disabled> Seleccione... </option>
                                             @foreach ($categorias as $categoria)
                                                 <option value="{{ $categoria->id }}"> {{ $categoria->nombre }}</option>
@@ -50,8 +54,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label"> Descripcion</label>
-                                        <textarea class="form-control" name="descripcion" cols="3" rows="3"></textarea>
+                                        <label class="control-label"> DescripDescripcióncion</label>
+                                        <textarea
+                                        class="form-control"
+                                        name="descripcion"
+                                        cols="3"
+                                        rows="3"
+                                        placeholder="ingrese una Descripción"
+                                        required="">
+                                    </textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label"> Portada</label>

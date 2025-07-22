@@ -58,20 +58,22 @@ cuendo termine el tutorual --}}
                                                 <img
                                                 src="{{ auth()->user()->image ? asset('storage/' . auth()->user()->image) : asset('images/default-user.png') }}"
                                                     alt="Imagen actual"
-                                                    class="img-thumbnail img-profile"
+                                                    class="rounded mx-auto d-block"
                                                     id="imagePreview"
                                                     style="width: 150px; height: 150px; object-fit: cover;">
                                             </div>
-
+                                            {{-- ! file --}}
                                             <div class="mb-3">
                                                 <input type="file"
-                                                class="form-control-file border"
+                                                class="file-niko border"
                                                 name="image"
                                                 accept="image/*"
                                                 onchange="previewImage(event)">
                                             </div>
+                                            <hr class="bg-light">
+
                                             <button type="submit" class="btn btn-outline-light">
-                                                Cambiar Foto
+                                                Guardar
                                             </button>
                                             @error('image')
                                                 <div class="alert alert-danger mt-5" role="alert">Seleccione una imagen para cargar</div>
@@ -92,7 +94,8 @@ cuendo termine el tutorual --}}
                                         <input type="text"
                                                 name="name"
                                                 value="{{ auth()->user()->name }}"
-                                                class="form-control" required="">
+                                                class="form-control"
+                                                required="">
                                         @error('name')
                                         <p class="text-danger">Error, campo vacio.</p>
                                         @enderror
@@ -100,8 +103,11 @@ cuendo termine el tutorual --}}
 
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input type="email" name="email" value="{{ auth()->user()->email }}"
-                                            class="form-control">
+                                        <input type="email"
+                                            name="email"
+                                            value="{{ auth()->user()->email }}"
+                                            class="form-control"
+                                            required="">
                                         @error('email')
                                         <p class="text-danger">Ingrese un email.</p>
                                         @enderror
@@ -109,8 +115,11 @@ cuendo termine el tutorual --}}
 
                                     <div class="form-group">
                                         <label>Teléfono:</label>
-                                        <input type="tel" name="telefono" value="{{ auth()->user()->telefono }}"
-                                            class="form-control">
+                                        <input type="tel"
+                                                name="telefono"
+                                                value="{{ auth()->user()->telefono }}"
+                                                required=""
+                                                class="form-control">
                                         @error('telefono')
                                         <p class="text-danger">Error en el teléfono.</p>
                                         @enderror

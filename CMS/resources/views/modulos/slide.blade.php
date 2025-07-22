@@ -26,6 +26,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-bolder">Cargar Imagen</h4>
+                        </div>
                         {{-- TODO cargar imagenes --}}
                         <div class="card-body">
                             <div class="container">
@@ -36,27 +39,39 @@
                                             @csrf
 
                                             <div class="form-group">
-                                                <label class="form-label">Cargar Imagen</label>
-                                                <input type="file" name="imagen" accept="images/*"
-                                                    class="form-control-file niko" onchange="previewImage(event)">
+                                                <label class="form-label">Seleccione Imagen</label>
+                                                <input type="file"
+                                                name="imagen"
+                                                accept="images/*"
+                                                class="file-niko"
+                                                onchange="previewImage(event)">
                                                 @error('image')
                                                     <p>Solo puedes cargar imagenes</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label>Titulo:</label>
-                                                <input type="text" name="titulo" class="form-control">
+                                                <label>Titulo: <span class="text-danger">*</span></label>
+                                                <input type="text"
+                                                name="titulo"
+                                                class="form-control"
+                                                required="">
                                             </div>
                                             <div class="form-group">
-                                                <label>Descripcion:</label>
-                                                <input type="text" name="descripcion" class="form-control">
+                                                <label>Descripcion: <span class="text-danger">*</span></label>
+                                                <input
+                                                type="text"
+                                                name="descripcion"
+                                                class="form-control"
+                                                required="">
                                             </div>
 
-                                            <button class="btn btn-success" type="submit"> Guardar</button>
+                                            <button class="btn btn-outline-success  btn-block" type="submit"> Guardar</button>
                                         </form>
                                     </div>
-                                    <div class="col-6 px-5">
-                                        <img class="img-responsive border border-success h-75 w-75 " id="imagePreview">
+                                    <div class="col-6">
+                                        <img class="rounded mx-auto d-block border border-success h-100 w-100 text-center"
+                                        alt="imagen"
+                                        id="imagePreview">
                                     </div>
                                 </div>
 
@@ -69,25 +84,31 @@
                         <div class="card-body">
                             <div class="container">
                                 <h2 class="text-bold pt-2 pb-4">Imagenes cargadas</h2>
+                                <hr>
                                 <div class="row">
                                     @foreach ($slide as $sli)
                                         <div class="col-3 mb-4 px-2">
-                                            <div class="card h-100">
-                                                <img src="{{ asset('storage/' . $sli->imagen) }}" class="card-img-top"
+                                            <div class="card">
+                                                <img src="{{ asset('storage/' . $sli->imagen) }}"
+                                                    style="max-width: 540px; max-height: 140px;"
                                                     alt="...">
 
                                                 <div class="card-body">
-                                                        <h5 class="card-title">{{ $sli->titulo }}</h5>
-                                                        <p class="card-text">{{ $sli->descripcion }}</p>
-                                                        <p class="card-text text-bold  mt-0 align-top">
-                                                            {{ $sli->id }}</p>
-                                                        <form method="POST"
-                                                            action="{{ route('eliminar.slide',$sli->id) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Eliminar</button>
-                                                        </form>
+                                                    <h5 class="card-title font-weight-bolder">{{ $sli->titulo }}</h5>
+                                                    <p class="card-text">{{ $sli->descripcion }}</p>
+                                                    <p class="card-text text-bold  mt-0 align-top">
+                                                        {{ $sli->id }}</p>
+                                                    <form method="POST"
+                                                        action="{{ route('eliminar.slide', $sli->id) }}"
+                                                        id="form-eliminar-{{ $sli->id }}">
+                                                        @csrf
+                                                        @method('delete')
+                                                        {{-- !recuerda se pasa a Submit->button y pasar Asunto y titulo --}}
+                                                        <button type="button" class="btn btn-danger"
+                                                            onclick="confirmarEliminacion('{{ $sli->id }}', 'Slide', '{{ $sli->titulo }}')">
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

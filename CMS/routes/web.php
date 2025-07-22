@@ -89,6 +89,7 @@ Route::get('/categorias-show',[CategoriasController::class, 'index'])->middlewar
 Route::put('/categorias/{categoria}',[CategoriasController::class, 'update'])->middleware('auth')->name('categorias.edit');
 //?cargando los datos (creando)
 Route::post('/categorias-store', [CategoriasController::class, 'store'])->middleware('auth')->name('categorias.store');
+// ?eliminando categorias
 Route::delete('/categorias-delete/{categoria}',[CategoriasController:: class, 'destroy'])->middleware('auth')->name('categorias.eliminar');
 
 
@@ -104,6 +105,9 @@ Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destr
 //? Buscar
 Route::get('editar-excursiones/{id}/edit',[ExcursionesController::class, 'edit'])->middleware('auth')->name('excursiones.edit');
 // ? Actualizar
-Route::post('editar-excursiones/{id}/edit',[ExcursionesController::class, 'update'])->middleware('auth')->name('excursiones.update');
+Route::post('editar-excursiones/{excu}',[ExcursionesController::class, 'update'])->middleware('auth')->name('excursiones.update');
+// ? Actualizar imagen
+Route::post('editar-excursiones/excu',[ExcursionesController::class, 'updateimg'])->middleware('auth')->name('excursiones.portada.update');
+
 
 

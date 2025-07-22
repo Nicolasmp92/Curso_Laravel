@@ -10,13 +10,11 @@ class CategoriasController extends Controller
 {
     public function index()
     {
-        // TODO Existen dos formas
+        $categorias = Categorias::orderBy('id','Desc')
+                                ->limit(20)
+                                ->get();
 
-        // $categorias =  DB::select('select * from categorias');
-        // return view ('modulos.categorias')->with('slide',$categorias );
 
-
-        $categorias = Categorias::all();
         return view('modulos.categorias')->with('categorias', $categorias);
     }
 
@@ -33,8 +31,15 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        Categorias::create(['nombre' => $request->nombre]);
-        return redirect()->route('categorias.show');
+        // ? para esto necesito tener filleable definido en el modelo
+        // Categorias::create(['nombre' => $request->nombre]);
+        // ? para esto no es necesario usar el filleble y es mas flexible frente a cambios
+        $categoria = $request;
+        $categoria =  new Categorias();
+        $categoria->nombre = $request->nombre;
+        $categoria->save();
+
+        return redirect()->route('categorias.show')->with('toast_success','Categoria Creada Exitosamente! 🆗');
     }
 
 
@@ -53,16 +58,13 @@ class CategoriasController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    //! Actualzar categorias
     public function update(Request $request, Categorias $categoria)
     {
         $categoria->nombre = $request->nombre;
         $categoria->save();
 
-        return redirect()->route('categorias.show');
+        return redirect()->route('categorias.show')->with('toast_warning','Categoria Editada! 😊');
 
     }
 
@@ -72,6 +74,6 @@ class CategoriasController extends Controller
     public function destroy(Categorias $categoria)
     {
         $categoria->id = $categoria->delete();
-        return redirect()->route('categorias.show');
+        return redirect()->route('categorias.show')->with('toast_error', 'Categoria eliminada con exito! 🗺️');
     }
 }

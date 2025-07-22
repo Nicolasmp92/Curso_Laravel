@@ -10,7 +10,12 @@ class UsersController extends Controller
 {
     // !listando usuarios
     public function index(){
-        $usuarios = User::orderBy('id', 'Desc')->get();
+
+        $usuarios =  User::where('id','!=', auth()->id())
+                                ->orderBy('id','desc')
+                                ->paginate(5);
+                                //!->get(); no es necesario utilizar get si se pagina
+
         return view('modulos.usuarios')->with('usuarios', $usuarios);
     }
     // !retornando vista para la creacion de usuarios
@@ -37,7 +42,8 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password); // 🔐 importante
         $user->save();
 
-        //! 👇 por esta rason se utiliza esto 👆 ya que asi se esesifica el dato asignado al request
+        //! 👇 por esto, se utiliza esto 👆 ya que asi se esesifica el dato
+        //! asignado al request
 
         //! User::create($request->all()); solo en caso de que los campos
         //! sean exactos a los del modelo, de no ser asi, no sabe donde asignarlo y se cae
@@ -52,20 +58,17 @@ class UsersController extends Controller
         return redirect()->route('usuarios.index')->with('toast_success','Usuario Creado con exito!😉');
     }
 
-    public function show(string $id)
-    {
+    public function show(string $id){
         //
     }
-
-    public function edit(string $id)
-    {
+    // ! mostrar usuarios
+    public function edit(string $id){
         $user = User::findOrFail($id);
         return view('modulos.editar-usuarios',compact('user'));
     }
 
     // !actualozar usuario seleccionado
-    public function update(Request $request, string $id)
-    {
+    public function update(Request $request, string $id){
         $user = User::findOrFail($id);
         $request->validate([
         'name'      => 'required|string|max:255',
@@ -91,6 +94,6 @@ class UsersController extends Controller
         //? para asi confirmar su eliminacion con sweeet alert y luego se envia el Id Aca 👇
         $user = User::findOrFail($id);
         $user -> delete();//?no es necesario volver a llamr al modelo (User::delete)
-        return redirect()->route('users.index')->with('toast_warning', 'Usuario eliminado correctamente');
+        return redirect()->route('usuarios.index')->with('toast_warning', 'Usuario eliminado correctamente. 🙊');
     }
 }

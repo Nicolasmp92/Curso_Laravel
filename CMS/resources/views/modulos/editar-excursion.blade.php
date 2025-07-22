@@ -1,6 +1,7 @@
 {{-- TODO  contenido --}}
 @extends('plantilla')
 @section('content')
+@vite(['resources/css/excu.css'])
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -38,21 +39,25 @@
                                     </div>
                                     <div class="card-body text-center">
                                         {{-- !formulario para actualizar imagen de perfil --}}
-                                        <form action="{{ route('misdatos.imagen') }}" method="POST"
+                                        <form action="{{ route('excursiones.portada.update') }}" method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
                                             {{-- Mostrar imagen actual o una por defecto --}}
-                                    {{-- ! Mostrar imagen --}}
-                                    <div class="mb-3 top-50 start-50">
-                                        <img src="{{ asset('storage/' . $excu->portada) }}" alt="Imagen actual"
-                                            class="img-thumbnail img-profile w-50 h-50" id="imagePreview">
-                                    </div>
+                                            {{-- ! Mostrar imagen --}}
+                                            <div class="mb-3 top-50 start-50">
+                                                <img src="{{ asset('storage/' . $excu->portada) }}" alt="Imagen actual"
+                                                    class="rounded mx-auto d-block " id="imagePreview">
+                                            </div>
 
 
-                                    <div class="form-group">
-                                        <input accept="image/*" name="portada" class="form-control pb-5 bg-dark"
-                                            onchange="previewImage(event)" type="file">
-                                    </div>
+                                            <div class="form-group">
+                                                <input accept="image/*"
+                                                name="portada"
+                                                class="file-niko border"
+                                                onchange="previewImage(event)"
+                                                type="file">
+                                            </div>
+                                        <hr class="bg-light">
                                             <button type="submit" class="btn btn-outline-light">
                                                 Cambiar Foto
                                             </button>
@@ -67,8 +72,7 @@
 
                             <div class="col-sm-6 col-md-8">
 
-                                <form action="{{ route('excursiones.update', $excu->id, '/edit') }}" method="post"
-                                    enctype="multipart/form-data">
+                                <form action="{{ route('excursiones.update', $excu->id, '/edit') }}" method="post">
                                     @csrf
                                     @method('post')
 
@@ -84,7 +88,8 @@
                                                 <option value="{{ $categoria->id }}"> {{ $categoria->nombre }}</option>
                                             @endforeach --}}
                                             @foreach ($categorias as $categoria)
-                                                <option value="{{ $categoria->nombre }}"
+                                                <option value="{{ $categoria->id }}"
+
                                                     {{ $excu->id_categoria == '$categoria->id' ? 'selected' : '' }}>
                                                     {{ $categoria->nombre }}</option>
                                             @endforeach
@@ -99,8 +104,10 @@
 
                                     <hr class="mt-5">
                                     <div class="col-m-6">
-                                        <button class="btn btn-outline-secondary btn-sm btn-block" type="submit">
-                                            Crear</button>
+                                        <button class="btn btn-outline-warning btn-sm btn-block"
+                                                type="submit">
+                                            Editar
+                                        </button>
                                     </div>
                                 </form>
 
