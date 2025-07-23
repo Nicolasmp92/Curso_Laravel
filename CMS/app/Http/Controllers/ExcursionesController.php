@@ -52,6 +52,8 @@ class ExcursionesController extends Controller
     }
 
     public function update(Request $request, Excursiones $excu){
+
+        // dd('¡Entró al update!', $request->all(), $excu);
         $request->validate([
             'titulo'        => 'required|max:20',
             'id_categoria'  => 'required',
@@ -63,7 +65,8 @@ class ExcursionesController extends Controller
         $excu->descripcion      = $request->descripcion;
         $excu->save();
 
-        return redirect()->route('excursiones.index')->with('toast_success','Excursion editada exitosamente!');
+        return redirect()->route('excursiones.edit', $excu->id)->with('toast_success','Datos Editados exitosamente!');
+        // return redirect()->route('excursiones.index')->with('toast_success','Excursion editada exitosamente! 😄');
     }
 
     public function updateimg(Request $request, Excursiones $excu){
@@ -76,10 +79,11 @@ class ExcursionesController extends Controller
             }
             $filename = Str::slug($excu->titulo).'-'.time().'.'. $request->portada->extension();
             $request->portada->storeAs('excursiones', $filename, 'public');
-        $excu->portada = 'usuarios/'.$filename;
+        $excu->portada = 'excursiones/'.$filename;
         $excu->save();
         }
-        return redirect()->route('excursiones.edit')->with('toast_success','Portada cargada exitosamente!.');
+        return redirect()->route('excursiones.edit', $excu->id)->with('toast_success','Portada cargada exitosamente!');
+
 
     }
 

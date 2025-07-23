@@ -15,11 +15,7 @@
                     </ol>
                 </div><!-- /.col -->
 
-                <div class="row px-4">
-                    <a class="btn btn-info" href="{{ route('excursiones.create') }}">
-                        <i class="fa fa-save"></i> Crear
-                        Excursiones</a>
-                </div>
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -29,19 +25,30 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <h4>Mis Excursiones</h4>
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h4>Mis Excursiones</h4>
+                                </div>
+                                <div class="col-auto ms-auto">
+                                    <a class="btn btn-success" href="{{ route('excursiones.create') }}">
+                                        <i class="fa fa-save"></i>
+                                        Crear Excursiones
+                                    </a>
+                                </div>
                             </div>
+                        </div>
+                        <div class="card-body">
+
                             <div class="table-responsive">
                                 <table class="table table-hover table table-bordered  align-middle">
                                     <thead class="table table-dark">
                                         <tr>
-                                            <th >ID</th>
-                                            <th >Categoria</th>
-                                            <th >Titulo</th>
-                                            <th >Descripcion</th>
+                                            <th>ID</th>
+                                            <th>Categoria</th>
+                                            <th>Titulo</th>
+                                            <th>Descripcion</th>
                                             <th class="text-center">Portada</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
@@ -61,7 +68,7 @@
                                                     <ul class="list-inline">
                                                         <li class="list-inline-item">
                                                             {{-- ! EDITAR --}}
-                                                            <a href="{{ route('excursiones.edit',$excu->id,'/edit') }}"
+                                                            <a href="{{ route('excursiones.edit', $excu->id, '/edit') }}"
                                                                 class="btn btn-warning px-3">
                                                                 <i class="fa fa-edit"> Editar</i>
                                                             </a>

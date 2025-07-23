@@ -64,7 +64,7 @@ class CategoriasController extends Controller
         $categoria->nombre = $request->nombre;
         $categoria->save();
 
-        return redirect()->route('categorias.show')->with('toast_warning','Categoria Editada! 😊');
+        return redirect()->route('categorias.show')->with('toast_success','Categoria Editada! 😊');
 
     }
 
@@ -74,6 +74,6 @@ class CategoriasController extends Controller
     public function destroy(Categorias $categoria)
     {
         $categoria->id = $categoria->delete();
-        return redirect()->route('categorias.show')->with('toast_error', 'Categoria eliminada con exito! 🗺️');
+        return redirect()->route('categorias.show')->with('toast_success', 'Categoria eliminada con exito! 🗺️');
     }
 }

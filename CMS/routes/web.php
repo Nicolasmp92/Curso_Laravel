@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Auth;
 
 
 // TODO FONTEND (comentar para iniciar con login)
-// Route::get('/',[FrontendController::class, 'inicio']);
-
+Route::get('/front',[FrontendController::class, 'inicio'])->name('front.view');
 // TODO lOGIN (comentar para iniciar con el front)
-Route::get('/', function () {return view('auth.login');});
+Route::get('/excursiones-todas',[FrontendController::class, 'mostrarexcu'])->name('excursiones-index');
+
+
+
 
 
 Auth::routes();
@@ -105,9 +107,10 @@ Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destr
 //? Buscar
 Route::get('editar-excursiones/{id}/edit',[ExcursionesController::class, 'edit'])->middleware('auth')->name('excursiones.edit');
 // ? Actualizar
-Route::post('editar-excursiones/{excu}',[ExcursionesController::class, 'update'])->middleware('auth')->name('excursiones.update');
+Route::put('editar-excursiones/{excu}', [ExcursionesController::class, 'update'])->name('excursiones.update');
 // ? Actualizar imagen
-Route::post('editar-excursiones/excu',[ExcursionesController::class, 'updateimg'])->middleware('auth')->name('excursiones.portada.update');
+Route::post('editar-excursiones/{excu}/portada', [ExcursionesController::class, 'updateimg'])->middleware('auth')->name('excursiones.portada.update');
+
 
 
 

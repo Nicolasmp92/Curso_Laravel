@@ -7,10 +7,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">Gestor de usuarios</h1>
-                        {{-- !ACA voy a cargar el formulario para crear usuarios --}}
-                            <a href="{{route('usuarios.create')}}" class="btn btn-outline-success mt-3">
-                            <i class="fa fa-user"></i> Crear Usuario</a>
-                        </a>
+
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -28,6 +25,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                                <div class="card-header">
+                                      {{-- !ACA voy a cargar el formulario para crear usuarios --}}
+                            <a href="{{route('usuarios.create')}}" class="btn btn-outline-success mt-3">
+                            <i class="fa fa-user"></i> Crear Usuario</a>
+                        </a>
+                                </div>
                                 <div class="card-body">
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead class="bg-secondary">

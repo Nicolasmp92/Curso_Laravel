@@ -4,11 +4,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header text-white bg-dark">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <div class="row">
+
+                    <div class="col-md-4">
+                        <img src="{{asset('storage/logo.png')}}" class="rounded mx-auto d-block w-100 h-100 " alt="">
+                    </div>
+                    <div class="col-md-8 mt-5">
+                    <form method="POST" class="align-items-start" action="{{ route('login') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -65,6 +71,8 @@
                             </div>
                         </div>
                     </form>
+                    </div> {{--! fin del formulario--}}
+                    </div>
                 </div>
             </div>
         </div>

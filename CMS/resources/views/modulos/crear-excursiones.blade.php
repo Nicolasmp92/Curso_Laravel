@@ -54,14 +54,16 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label"> DescripDescripcióncion</label>
+                                        <label class="control-label"> Descripción</label>
                                         <textarea
                                         class="form-control"
                                         name="descripcion"
                                         cols="3"
                                         rows="3"
                                         placeholder="ingrese una Descripción"
-                                        required="">
+                                        required=""
+                                        data-cursor-start
+                                        >
                                     </textarea>
                                     </div>
                                     <div class="form-group">

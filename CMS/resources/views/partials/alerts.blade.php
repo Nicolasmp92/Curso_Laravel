@@ -25,6 +25,12 @@
             @endif
 
             @if (session('toast_info'))
+             toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "timeOut": "4000"
+                };
                 toastr.info(`{{ session('toast_info') }}`);
             @endif
         } else {

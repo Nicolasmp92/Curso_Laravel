@@ -39,16 +39,20 @@
                                     </div>
                                     <div class="card-body text-center">
                                         {{-- !formulario para actualizar imagen de perfil --}}
-                                        <form action="{{ route('excursiones.portada.update') }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        {{-- * recuerda muy importante pasar el id en la url del action y en la ruta --}}
+                                      <form action="{{ route('excursiones.portada.update', $excu->id) }}" method="POST" enctype="multipart/form-data">
+
                                             @csrf
                                             {{-- Mostrar imagen actual o una por defecto --}}
                                             {{-- ! Mostrar imagen --}}
+                                            @if ($excu->portada)
                                             <div class="mb-3 top-50 start-50">
-                                                <img src="{{ asset('storage/' . $excu->portada) }}" alt="Imagen actual"
-                                                    class="rounded mx-auto d-block " id="imagePreview">
+                                                <img src="{{ asset('storage/' . $excu->portada) }}"
+                                                alt="Imagen actual"
+                                                class="rounded mx-auto d-block "
+                                                id="imagePreview">
                                             </div>
-
+                                            @endif
 
                                             <div class="form-group">
                                                 <input accept="image/*"
@@ -72,11 +76,12 @@
 
                             <div class="col-sm-6 col-md-8">
 
-                                <form action="{{ route('excursiones.update', $excu->id, '/edit') }}" method="post">
+                                <form action="{{ route('excursiones.update', $excu->id) }}" method="POST">
                                     @csrf
-                                    @method('post')
+                                    @method('PUT')
 
                                     <div class="form-group">
+                                        <p>{{$excu->id}}</p>
                                         <label class="control-label"> Titulo</label>
                                         <input name="titulo" class="form-control" type="text" placeholder="Titulo"
                                             value="{{ $excu->titulo }}">
@@ -122,14 +127,29 @@
     </section>
 
     {{-- Script para vista previa de la imagen de perfil --}}
-    <script>
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('imagePreview');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    </script>
+   <script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            // Si no existe el elemento, lo creamos
+            let output = document.getElementById('imagePreview');
+
+            // Si no existe imagen previa, la insertamos
+            if (!output) {
+                output = document.createElement('img');
+                output.id = 'imagePreview';
+                output.className = 'rounded mx-auto d-block';
+                output.style.width = '100%';
+                output.style.objectFit = 'cover';
+
+                // Insertamos el nuevo <img> después del input
+                event.target.parentNode.insertBefore(output, event.target.nextSibling);
+            }
+
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
 @endsection

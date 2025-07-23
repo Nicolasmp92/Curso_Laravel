@@ -51,40 +51,26 @@
         <h1 class="text-center text-info"><b>EXCURSIONES</b></h1>
         <hr>
         <ul>
-            <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <img src="images/articulos/landscape02.jpg" class="img-thumbnail">
-                <h1>Viaje por Mar del Plata</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <a href="#">
-                    <button class="btn btn-default">Leer Más</button>
-                </a>
-                <hr>
-            </li>
-            <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <img src="images/articulos/landscape03.jpg" class="img-thumbnail">
-                <h1>Colombia</h1>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                    into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                    release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <a href="#">
-                    <button class="btn btn-default">Leer Más</button>
-                </a>
-                <hr>
-            </li>
+            @foreach ($excursiones->chunk(10) as $group)
+                @foreach($group as $excursion)
+                    <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <img src="images/articulos/landscape02.jpg" class="img-thumbnail">
+                    <h1>{{$excursion->titulo}}</h1>
+                    <p>{{$excursion->descripcion}}</p>
+                    <a href="#">
+                        <button class="btn btn-default">Leer Más</button>
+                    </a>
+                    <hr>
+                </li>
+                @endforeach
+            @endforeach
         </ul>
     </div>
 
     <div class="row">
         <center>
-            <a href="#"><button class="btn btn-primary btn-lg">Ver Todas las Excursiones</button></a>
+            <a href="{{route ('excursiones-index')}}">
+                <button class="btn btn-primary btn-lg">Ver Todas las Excursiones</button></a>
         </center>
     </div>
 

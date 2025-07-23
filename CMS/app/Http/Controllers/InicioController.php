@@ -12,16 +12,16 @@ class InicioController extends Controller
 
     public function index()
     {
-        // Verifica si el usuario está autenticado
-        // $usuario = Auth::user();
-        // // Si el usuario no tiene imagen de perfil
-        // if (empty($usuario->image)) {
-        //     return view("modulos.inicio")->with('toast_info', '¡Puedes subir tu imagen de perfil desde Mis Datos!');
-        // }
+        $usuario = Auth::user();
+        $mostrarBloquePerfil = empty($usuario->image);
 
-        // Si tiene imagen, solo muestra la vista
-        return view("modulos.inicio");
+        if ($mostrarBloquePerfil) {
+            session()->flash('toast_info', '¡Puedes subir tu imagen de perfil desde "Mis Datos"!');
+        }
+
+        return view('modulos.inicio', compact('mostrarBloquePerfil'));
     }
+
 
 
 
