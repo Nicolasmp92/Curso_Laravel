@@ -14,6 +14,17 @@ use Doctrine\DBAL\Driver\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
+
+// ! Aca se pasan todos los metodos para todas las rutas protegidas por auth esto no se borra
+Auth::routes();
+Route::view('/panel', '/auth.login')->middleware('auth')->name('panel.inicio');
+// ?Cambio la ruta base a log in
+Route::get('/', function () { return view('auth.login');});
+// ? ruta para inicio del DASHBOARD
+Route::get('/inicio', [InicioController::class, 'index'])->middleware('auth')->name('inicio.home');
+// ? esto retorna welcome como pagina de inicio
+// aca welcom esta cargando la pagina del front
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -24,19 +35,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/front',[FrontendController::class, 'inicio'])->name('front.view');
 // TODO lOGIN (comentar para iniciar con el front)
 Route::get('/excursiones-todas',[FrontendController::class, 'mostrarexcu'])->name('excursiones-index');
-
-
-
-
-
-Auth::routes();
-
-Route::view('/panel', '/auth.login')->middleware('auth')->name('panel.inicio');
-
-// ? ruta para inicio del DASHBOARD
-Route::get('/inicio', [InicioController::class, 'index'])->middleware('auth')->name('inicio.home');
-
-
 
 
 // TODO datos de PERFIL
@@ -50,9 +48,6 @@ Route::post('/misdatos/imagen', [MisdatosController::class, 'actualizarImagen'])
 Route::get('/misdatos-pass',[MisdatosController::class, 'ChangePass'])->middleware('auth')->name('misdatos.change.pass');
 // ? ruta para cambiar la contraseña
 Route::put('/misdatos-pass', [MisdatosController::class, 'updatePass'])->middleware('auth')->name('misdatos.update.pass');
-
-
-
 
 
 // TODO para administrar USUARIOS
@@ -70,8 +65,6 @@ Route::post('editar-usuarios/{id}/edit',[UsersController::class, 'update'])->mid
 Route::delete('/eliminar_usuarios/{id}',[UsersController::class,'destroy'])->middleware('auth')->name('usuarios.destroy');
 
 
-
-
 // TODO Slide
 //? Mostrar lista de slides
 Route::get('/mostrar-slide',[SlideController::class, 'index'])->name('index.slide');
@@ -79,7 +72,6 @@ Route::get('/mostrar-slide',[SlideController::class, 'index'])->name('index.slid
 Route::post('/crear-slide',[SlideController::class,'store'])->name('store.slide');
 //? eliminar
 Route::delete('/eliminar-slide/{id}', [SlideController::class, 'destroy'])->name('eliminar.slide');
-
 
 
 // TODO categorias
@@ -106,11 +98,12 @@ Route::post('/excursiones-store',[ExcursionesController::class, 'store'])->middl
 Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destroy'])->middleware('auth')->name('excursiones.delete');
 //? Buscar
 Route::get('editar-excursiones/{id}/edit',[ExcursionesController::class, 'edit'])->middleware('auth')->name('excursiones.edit');
-// ? Actualizar
+// ? Actualizar excursion
 Route::put('editar-excursiones/{excu}', [ExcursionesController::class, 'update'])->name('excursiones.update');
-// ? Actualizar imagen
-Route::post('editar-excursiones/{excu}/portada', [ExcursionesController::class, 'updateimg'])->middleware('auth')->name('excursiones.portada.update');
-
+// ? mosrtar todas las exurciones
+Route::get('/excursion-showall',[ExcursionesController::class, 'showall'])->middleware('auth')->name('excrusriones.showall');
+// ? mostrar excursion con show
+Route::get('/excursion-showone/{excu}',[ExcursionesController::class, 'showone'])->middleware('auth')->name('excrusrion.showone');
 
 
 

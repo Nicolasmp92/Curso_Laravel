@@ -113,6 +113,8 @@
                                             </div>
                                         </div>
                                     @endforeach
+
+                                    {!! $slide->links('pagination::bootstrap-5') !!}
                                 </div>
                             </div>
                         </div>

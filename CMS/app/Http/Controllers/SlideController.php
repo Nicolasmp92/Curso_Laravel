@@ -15,8 +15,7 @@ class SlideController extends Controller
     {
         // $slide =  DB::select('select * from slide');
         $slide = Slide::orderBy('created_at', 'Desc')
-                        ->limit(20)
-                        ->paginate(10);
+                        ->paginate(5);
                         //!->get();despues de un paginate no colocar get
 
 

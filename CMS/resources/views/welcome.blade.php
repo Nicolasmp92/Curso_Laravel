@@ -17,26 +17,20 @@
     <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
     <script src="{{ asset('js/animatescroll.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollUp.js') }}"></script>
-
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
 </head>
 
-<body>
 
-	<div class="container-fluid">
-        @include('frontend.menu')
-        @yield('content')
-    </div>
+    <body class="">
+        <div class="container-fluid">
+            @include('frontend.menu')
+            @yield('content')
+        </div>
+
+    <script src="{{ asset('js/script.js') }}"></script>
+    </body>
 
 
-
-
-
-<script src="js/script.js"></script>
-
-</body>
 </html>
 
 

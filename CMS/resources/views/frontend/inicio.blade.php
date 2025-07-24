@@ -1,79 +1,69 @@
 @extends('welcome')
-
 @section('content')
-
 @vite(['resources/css/slide.css'])
-    <div class="row">
-        <h1>inicio.blade front-end</h1>
+<div class="container container-fluid">
+    {{-- Todo slide --}}
+    <div class="row w-50 h-50">
+            <div id="slide" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul >
+                    @foreach ($slide as $sli)
+                        <li>
+                            <div class="slide-img-wrapper">
+                                <img class="img-fluid mx-auto d-block" src="{{ asset('storage/' . $sli->imagen) }}">
+                            </div>
+                            <div class="slideCaption">
+                                <h3>{{ $sli->titulo }}</h3>
+                                <p>{{ $sli->descripcion }}</p>
+                            </div>
+                        </li>
+                    @endforeach
 
-
-
-
-
-        <div id="slide" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <ul>
-                @foreach ($slide as $sli)
-                    <li>
-                        <div class="slide-img-wrapper">
-                            <img class="img-fluid mx-auto d-block" src="{{ asset('storage/' . $sli->imagen) }}">
-                        </div>
-                        <div class="slideCaption">
-                            <h3>{{ $sli->titulo }}</h3>
-                            <p>{{ $sli->descripcion }}</p>
-                        </div>
-                    </li>
-                @endforeach
-
-            </ul>
-            <div id="slideIzq"><span class="fa fa-chevron-left"></span></div>
-            <div id="slideDer"><span class="fa fa-chevron-right"></span></div>
-        </div>
-
-
-
+                </ul>
+                <div id="slideIzq"><span class="fa fa-chevron-left"></span></div>
+                <div id="slideDer"><span class="fa fa-chevron-right"></span></div>
+            </div>
     </div>
+    {{--TODO /Slide--}}
 
-    <div class="row" id="top">
+    {{-- TODO CATEGORÍAS --}}
+    <div class="row">
         <h1 class="text-center text-info"><b>CATEGORÍAS</b></h1>
-    @foreach($categorias as $categoria)
-
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 text-center">
+        @foreach ($categorias as $categoria)
+        <div class="col-md-3 ">
             <a href="#" style="color: black;">
-                <h3>Viajes por {{$categoria -> nombre}}</h3>
+                <h3>Viajes por {{ $categoria->nombre }}</h3>
             </a>
         </div>
-    @endforeach
-
+        @endforeach
     </div>
+    {{-- TODO /CATEGORÍAS --}}
 
+    {{-- TODO EXCURSIONES --}}
     <div class="row" id="articulos">
         <hr>
-        <h1 class="text-center text-info"><b>EXCURSIONES</b></h1>
+        <h1 class="text-center text-info"><b></b></h1>
         <hr>
-        <ul>
-            @foreach ($excursiones->chunk(10) as $group)
-                @foreach($group as $excursion)
-                    <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img src="images/articulos/landscape02.jpg" class="img-thumbnail">
-                    <h1>{{$excursion->titulo}}</h1>
-                    <p>{{$excursion->descripcion}}</p>
-                    <a href="#">
-                        <button class="btn btn-default">Leer Más</button>
-                    </a>
-                    <hr>
-                </li>
-                @endforeach
-            @endforeach
+        @foreach ($excursiones->chunk(10) as $group)
+        @foreach ($group as $excursion)
+        <ul class="border border-dark">
+            <li class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <img src="{{ asset('storage/' . $excursion->portada) }}" class="rounded mx-auto d-block" style="max-height: 100px; max-width: 100px;">
+                <h1>{{ $excursion->titulo }}</h1>
+                <p>{{ $excursion->descripcion }}</p>
+            </li>
         </ul>
+        @endforeach
+        @endforeach
     </div>
-
     <div class="row">
         <center>
-            <a href="{{route ('excursiones-index')}}">
-                <button class="btn btn-primary btn-lg">Ver Todas las Excursiones</button></a>
+            <a href="{{ route('excrusriones.showall') }}">
+                <button class="btn btn-primary btn-block btn-lg">Ver Todas las Excursiones</button></a>
         </center>
     </div>
+    {{-- TODO EXCURSIONES --}}
 
+    {{-- TODO FOOTER --}}
     <footer class="row" id="contactenos">
         <hr>
         <h1 class="text-center text-info"><b>CONTÁCTENOS</b></h1>
@@ -118,4 +108,6 @@
             </form>
         </div>
     </footer>
+    {{-- TODO FOOTER --}}
+</div>
 @endsection

@@ -1,6 +1,4 @@
-
 @extends('welcome')
-
 @section('content')
 
 
@@ -17,8 +15,8 @@
                     <img src="{{asset('storage/'. $excursion->portada)}}" class="img-thumbnail">
                     <h1>{{$excursion->titulo}}</h1>
                     <p>{{$excursion->descripcion}}</p>
-                    <a href="#">
-                        <button class="btn btn-default">Leer Más</button>
+                    <a href="{{route('excrusrion.showall')}}">
+                        Ver mas
                     </a>
                     <hr>
                 </li>

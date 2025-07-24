@@ -40,59 +40,74 @@ class ExcursionesController extends Controller
         return redirect()->route('excursiones.index')->with('toast_success', 'Excursión creada con éxito');
     }
 
-    public function show(Excursiones $excursiones)
+    public function edit($id)
     {
-        //
-    }
-
-    public function edit($id){
         $excu = Excursiones::findOrFail($id);
         $categorias = Categorias::all();
-        return view('modulos.editar-excursion',compact('excu'))->with('categorias', $categorias);
+        return view('modulos.editar-excursion', compact('excu'))->with('categorias', $categorias);
+        //! cambiar a solo with
     }
-
-    public function update(Request $request, Excursiones $excu){
-
-        // dd('¡Entró al update!', $request->all(), $excu);
-        $request->validate([
-            'titulo'        => 'required|max:20',
-            'id_categoria'  => 'required',
-            'descripcion'   => 'required|max:1000',
-        ]);
-
-        $excu->titulo           = $request->titulo;
-        $excu->id_categoria     = $request->id_categoria;
-        $excu->descripcion      = $request->descripcion;
-        $excu->save();
-
-        return redirect()->route('excursiones.edit', $excu->id)->with('toast_success','Datos Editados exitosamente!');
-        // return redirect()->route('excursiones.index')->with('toast_success','Excursion editada exitosamente! 😄');
-    }
-
-    public function updateimg(Request $request, Excursiones $excu){
-        $request->validate([
-            'portada' => 'required|image'
-        ]);
-        if ($request->hasFile('portada')){
-            if($excu->portada && Storage::disk('public')->exists($excu->portada)){
-                Storage::disk('public')->delete($excu->portada);
-            }
-            $filename = Str::slug($excu->titulo).'-'.time().'.'. $request->portada->extension();
-            $request->portada->storeAs('excursiones', $filename, 'public');
-        $excu->portada = 'excursiones/'.$filename;
-        $excu->save();
+public function update(Request $request, Excursiones $excu){
+    // Validar todo lo que podría venir
+    $request->validate([
+        'titulo'        => 'required|max:20',
+        'id_categoria'  => 'required',
+        'descripcion'   => 'required|max:1000',
+        'portada'       => 'nullable|image', // Solo si se envía imagen, que sea válida
+    ]);
+    // Actualizar los campos de texto
+    $excu->titulo           = $request->titulo;
+    $excu->id_categoria     = $request->id_categoria;
+    $excu->descripcion      = $request->descripcion;
+    // Si viene una imagen en el formulario
+    if ($request->hasFile('portada')) {
+        // Elimina la imagen anterior si existe
+        if ($excu->portada && Storage::disk('public')->exists($excu->portada)) {
+            Storage::disk('public')->delete($excu->portada);
         }
-        return redirect()->route('excursiones.edit', $excu->id)->with('toast_success','Portada cargada exitosamente!');
-
-
+        // Genera nuevo nombre único y guarda la imagen
+        $filename = Str::slug($excu->titulo) . '-' . time() . '.' . $request->portada->extension();
+        $request->portada->storeAs('excursiones', $filename, 'public');
+        // Guarda la nueva ruta en la base de datos
+        $excu->portada = 'excursiones/' . $filename;
     }
-
-
-    public function destroy( $id)
+    // Guardar todos los cambios
+    $excu->save();
+    return redirect()
+        ->route('excursiones.edit', $excu->id)
+        ->with('toast_success', 'Excursión actualizada exitosamente!');
+    }
+    public function destroy($id)
     {
         $excu = Excursiones::findOrFail($id);
-        $excu -> delete();
+        if ($excu->portada && Storage::disk('public')->exists($excu->portada)) {
+            Storage::disk('public')->delete($excu->portada);
+        }
+        $excu->delete();
         return redirect()->route('excursiones.index')->with('toast_success', 'Excursión eliminada!');
     }
+
+
+// TODO FRONT
+  //! mostraremos la excursion seleccionada en todas-excursiones
+    public function showall(Excursiones $excu){
+        $excu =  Excursiones::findOrFail();
+        return view('frontend.todas-excursiones', compact('excursiones'));
+    }
+
+    public function showone(Excursiones $excu){
+            $excu =  Excursiones::findOrFail($excu);
+            return view('frontend.mostrar-excursion', compact('excursiones'));
+        }
+
+
+
+
+
+
+
+
+
+
 
 }
