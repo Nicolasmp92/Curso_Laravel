@@ -88,19 +88,6 @@ public function update(Request $request, Excursiones $excu){
     }
 
 
-// TODO FRONT
-  //! mostraremos la excursion seleccionada en todas-excursiones
-    public function showall(Excursiones $excursiones){
-        $excursiones =  Excursiones::findOrFail($excursiones);
-        return view('frontend.todas-excursiones', compact('excursiones'));
-    }
-
-    public function showone(Excursiones $excu){
-            $excu =  Excursiones::findOrFail($excu);
-            return view('frontend.mostrar-excursion', compact('excursion'));
-        }
-
-
 
 
 

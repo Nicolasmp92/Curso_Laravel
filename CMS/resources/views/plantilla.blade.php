@@ -78,6 +78,8 @@
 
         {{-- ! wreapper contiene todo sidebar header  y content-wrapper el contenido esto es importante para que el collapse de wrapper funcione correctamente --}}
         <div class="content-wrapper">
+        {{-- @include('partials.header') --}}
+
             <div class="content-header">
                 <div class="container-fluid">
                     @yield('content')

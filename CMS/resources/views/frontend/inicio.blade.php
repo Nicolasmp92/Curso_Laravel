@@ -3,34 +3,36 @@
 @vite(['resources/css/slide.css'])
 <div class="container container-fluid">
     {{-- Todo slide --}}
-    <div class="row w-50 h-50">
-            <div id="slide" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <ul >
-                    @foreach ($slide as $sli)
-                        <li>
-                            <div class="slide-img-wrapper">
-                                <img class="img-fluid mx-auto d-block" src="{{ asset('storage/' . $sli->imagen) }}">
-                            </div>
-                            <div class="slideCaption">
-                                <h3>{{ $sli->titulo }}</h3>
-                                <p>{{ $sli->descripcion }}</p>
-                            </div>
-                        </li>
-                    @endforeach
+    <div class="row">
+        <div id="slide" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <ul >
+                @foreach ($slide as $sli)
+                    <li>
+                        <div class="slide-img-wrapper">
+                            <img class="img-fluid mx-auto d-block" src="{{ asset('storage/' . $sli->imagen) }}">
+                        </div>
+                        <div class="slideCaption">
+                            <h3>{{ $sli->titulo }}</h3>
+                            <p>{{ $sli->descripcion }}</p>
+                        </div>
+                    </li>
+                @endforeach
 
-                </ul>
-                <div id="slideIzq"><span class="fa fa-chevron-left"></span></div>
-                <div id="slideDer"><span class="fa fa-chevron-right"></span></div>
-            </div>
+            </ul>
+            <div id="slideIzq"><span class="fa fa-chevron-left"></span></div>
+            <div id="slideDer"><span class="fa fa-chevron-right"></span></div>
+        </div>
     </div>
     {{--TODO /Slide--}}
 
     {{-- TODO CATEGORÍAS --}}
     <div class="row">
         <h1 class="text-center text-info"><b>CATEGORÍAS</b></h1>
+        <hr>
         @foreach ($categorias as $categoria)
         <div class="col-md-3 ">
-            <a href="#" style="color: black;">
+            <a href="{{route('excursion.categoria', $categoria->id)}}" style="color: black;">
+                <p></p>
                 <h3>Viajes por {{ $categoria->nombre }}</h3>
             </a>
         </div>
@@ -40,8 +42,7 @@
 
     {{-- TODO EXCURSIONES --}}
     <div class="row" id="articulos">
-        <hr>
-        <h1 class="text-center text-info"><b></b></h1>
+        <h1 class="text-center text-info"><b>Excursiones</b></h1>
         <hr>
         @foreach ($excursiones->chunk(10) as $group)
         @foreach ($group as $excursion)
@@ -50,6 +51,7 @@
                 <img src="{{ asset('storage/' . $excursion->portada) }}" class="rounded mx-auto d-block" style="max-height: 100px; max-width: 100px;">
                 <h1>{{ $excursion->titulo }}</h1>
                 <p>{{ $excursion->descripcion }}</p>
+                <a href="{{route('excrusrion.showone', $excursion->id)}}" class="btn btb-info"> Ver mas</a>
             </li>
         </ul>
         @endforeach

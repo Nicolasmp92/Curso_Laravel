@@ -1,25 +1,7 @@
 {{-- TODO  contenido --}}
 @extends('plantilla')
 @section('content')
-    {{-- !Estas son las clasicas miguitas de pan, a mi personalmente me gustan las dejare para configurarlas mas tarde cuendo termine el tutorual --}}
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark text-bold">Gestion Excursiones</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active">Excursiones </li>
-                    </ol>
-                </div><!-- /.col -->
-
-
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-
+    @include('partials.header', ['title' => 'Mis Excursiones', 'slot' => 'Excursiones'])
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -29,7 +11,7 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h4>Mis Excursiones</h4>
+                                    <h4>Excursiones ({{ $excursiones->count() }})</h4>
                                 </div>
                                 <div class="col-auto ms-auto">
                                     <a class="btn btn-success" href="{{ route('excursiones.create') }}">
@@ -60,34 +42,37 @@
                                                 <td>{{ $excu->categoria->nombre }}</td>
                                                 <td>{{ $excu->titulo }}</td>
                                                 <td>{{ Str::limit($excu->descripcion, 70) }}</td>
-                                                <td class="w-25 h-25 text-center">
-                                                    <img class="img img-thumbnail w-lg-auto  h-lg-auto  w-50 h-25"
-                                                        src=" {{ asset('storage/' . $excu->portada) }}">
+                                                <td class="w-25 h-25 text-center d-none d-sm-table-cell">
+                                                    <img class="img img-thumbnail w-lg-auto h-lg-auto w-50 h-25"
+                                                        src="{{ asset('storage/' . $excu->portada) }}" alt="portada">
                                                 </td>
-                                                <td>
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
-                                                            {{-- ! EDITAR --}}
-                                                            <a href="{{ route('excursiones.edit', $excu->id, '/edit') }}"
-                                                                class="btn btn-warning px-3">
-                                                                <i class="fa fa-edit"> Editar</i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item">
-                                                            <form method="POST"
-                                                                action="{{ route('excursiones.delete', $excu->id) }}"
-                                                                id="form-eliminar-{{ $excu->id }}">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="button" class="btn btn-danger btn-block mt-2"
-                                                                    style="min-width: 50px"
-                                                                    onclick="confirmarEliminacion('{{ $excu->id }}', 'Slide', '{{ $excu->titulo }}')">
-                                                                    <i class="fa fa-trash"></i> Eliminar
-                                                                </button>
 
-                                                            </form>
-                                                        </li>
-                                                    </ul>
+                                                <td class="text-center">
+                                                    <div class="btn-group-vertical w-100" role="group">
+                                                        {{-- GALERÍA --}}
+                                                        <a href="{{ route('galerias.edit', $excu->id) }}"
+
+                                                            class="btn btn-info btn-sm mb-1" title="Gestionar galería">
+                                                            <i class="fa fa-image"></i> Galería
+                                                        </a>
+
+                                                        {{-- EDITAR --}}
+                                                        <a href="{{ route('excursiones.edit', $excu->id) }}"
+                                                            class="btn btn-warning btn-sm mb-1" title="Editar excursión">
+                                                            <i class="fa fa-edit"></i> Editar
+                                                        </a>
+
+                                                        {{-- ELIMINAR --}}
+                                                        <form method="POST"
+                                                            action="{{ route('excursiones.delete', $excu->id) }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="button" class="btn btn-danger btn-sm"
+                                                                onclick="confirmarEliminacion('{{ $excu->id }}', 'Excursión', '{{ $excu->titulo }}')">
+                                                                <i class="fa fa-trash"></i> Eliminar
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

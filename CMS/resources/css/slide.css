@@ -12,3 +12,23 @@
     background-color: #709078;
 }
 
+
+
+/*! Para el slide individual */
+.btn-info{
+    margin-bottom: 1rem;
+}
+.thumbnail{
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 1.5rem;
+    padding-block-start: 1.5rem;
+}
+.caption>h3{
+    padding-block-start: 50rem !important;
+    color: red;
+}
+.slide-img-wrapper>img{
+    border-radius: 1%;
+    height: 50rem;
+    /* border: solid red 1px; */
+}

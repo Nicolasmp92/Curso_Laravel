@@ -9,6 +9,7 @@ use App\Http\Controllers\InicioController;
 use App\Http\Controllers\MisdatosController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SlideController;
+use App\Http\Controllers\GaleriaController;
 use Doctrine\DBAL\Driver\Middleware;
 // TODO Facades
 use Illuminate\Support\Facades\Route;
@@ -33,8 +34,12 @@ Route::get('/inicio', [InicioController::class, 'index'])->middleware('auth')->n
 
 // TODO FONTEND (comentar para iniciar con login)
 Route::get('/front',[FrontendController::class, 'inicio'])->name('front.view');
-// TODO lOGIN (comentar para iniciar con el front)
-Route::get('/excursiones-todas',[FrontendController::class, 'mostrarexcu'])->name('excursiones-index');
+// ? mosrtar todas las exurciones
+Route::get('/excursion-showall',[FrontendController::class, 'showall'])->name('excrusriones.showall');
+// ? mostrar una de las excursiones
+Route::get('/excursion-showone/{excu}',[FrontendController::class, 'showone'])->name('excrusrion.showone');
+// ? mostrando excursiones por categoria
+Route::get('/excursion-showwhen/{categoria}',[FrontendController::class, 'showwhen'])->name('excursion.categoria');
 
 
 // TODO datos de PERFIL
@@ -74,6 +79,23 @@ Route::post('/crear-slide',[SlideController::class,'store'])->name('store.slide'
 Route::delete('/eliminar-slide/{id}', [SlideController::class, 'destroy'])->name('eliminar.slide');
 
 
+
+//  TODO Galeria
+// Mostrar formulario de edición de galería
+Route::get('/galerias/{excursion}', [GaleriaController::class, 'edit'])->middleware('auth')->name('galerias.edit');
+
+// Subir nuevas imágenes a la galería
+Route::put('/galerias/{excursion}', [GaleriaController::class, 'update'])
+    ->name('galerias.update')
+    ->middleware('auth');
+
+// Eliminar una imagen específica
+Route::delete('/galerias/{imagen}', [GaleriaController::class, 'destroy'])
+    ->name('galerias.destroy')
+    ->middleware('auth');
+
+
+
 // TODO categorias
 //? retornando vista
 // Route::view('/categorias','modulos.categorias')->middleware('auth')->name('categorias.view')
@@ -100,10 +122,6 @@ Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destr
 Route::get('editar-excursiones/{id}/edit',[ExcursionesController::class, 'edit'])->middleware('auth')->name('excursiones.edit');
 // ? Actualizar excursion
 Route::put('editar-excursiones/{excu}', [ExcursionesController::class, 'update'])->name('excursiones.update');
-// ? mosrtar todas las exurciones
-Route::get('/excursion-showall',[ExcursionesController::class, 'showall'])->middleware('auth')->name('excrusriones.showall');
-// ? mostrar excursion con show
-Route::get('/excursion-showone/{excu}',[ExcursionesController::class, 'showone'])->middleware('auth')->name('excrusrion.showone');
 
 
 

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tinker', function (Blueprint $table) {
+        Schema::create('galeria', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->text('contenido');
+            $table->integer('excursion_id');
+            $table->text('imagen');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tinker');
+        Schema::dropIfExists('galeria');
     }
 };

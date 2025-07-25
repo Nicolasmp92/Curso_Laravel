@@ -47,7 +47,7 @@
         {{-- MENÚ --}}
         <nav id="botonera" class="col-lg-9 col-md-9 col-sm-12 col-xs-12 collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ route('panel.inicio') }}">Inicio</a></li>
+                <li><a href="{{ route('front.view') }}">Inicio</a></li>
                 <li><a href="#top">Categorías</a></li>
                 <li><a href="Excursiones-Todas">Excursiones</a></li>
                 <li><a href="#contactenos">Contáctenos</a></li>

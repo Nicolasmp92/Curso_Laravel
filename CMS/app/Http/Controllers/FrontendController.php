@@ -11,17 +11,19 @@ class FrontendController extends Controller
 {
     public function inicio(){
         $slide = Slide::all();
-        $categorias= Categorias::orderBy('id','desc')->limit(8)->paginate(4);
+        $categorias= Categorias::orderBy('id','asc')
+                                ->limit(8)
+                                ->paginate(4);
 
-        $excursiones = Excursiones::all()->sortByDesc('id')->take(4);
+        $excursiones = Excursiones::all()
+                                    ->sortByDesc('id')
+                                    ->take(4);
         //! mira muy importante
         //? tambien se puede usar sortByDesc pero solo con consultas ya cargadas osea all()
         // * para entender un poco sort trabaja sobre un select * from user y ordena con PHP
         //? por lo que se lee, es mas eficiente orderBy ya que viene ordenado desde la consulta
         // * orderBy ejecuta select *  from user oder by id desc (y claro mas parametros)
         // ? a.. el take te trae registros en este caso 4
-
-
 
         return view('frontend.inicio', compact('slide','categorias','excursiones'));
 
@@ -32,9 +34,24 @@ class FrontendController extends Controller
         //         ->with('excursiones',$excursiones);
     }
 
-    public function mostrarexcu(){
-
+    public function showall(){
         $excursiones = Excursiones::all();
         return view('frontend.todas-excursiones' ,compact('excursiones'));
     }
+
+    public function showone(Excursiones $excu){
+        return view('frontend.mostar-excursion', compact('excu'));
+    }
+
+    public function showwhen(Categorias $categoria)
+    {
+        $excursiones = Excursiones::where('id_categoria', $categoria->id)->get();
+
+        // si quieres también enviar el nombre de la categoría
+        return view('frontend.mostar-por-categoria', compact('excursiones', 'categoria'));
+    }
+
+
+
+
 }
