@@ -32,6 +32,7 @@
                                 </p>
                             </a>
                         </li>
+                        @if(strtolower(auth()->user()->rol) === 'admin')
                         <li class="nav-item">
                             {{-- !aca el formulario para mostrar usuarios --}}
                             <a href="{{route('usuarios.index')}}" class="nav-link ">
@@ -41,6 +42,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{route ('index.slide')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-image"></i>
@@ -57,6 +59,7 @@
                                 </p>
                             </a>
                         </li>
+                        @if(in_array(auth()->user()->rol, ['admin', 'editor']))
                         <li class="nav-item">
                             <a href="{{route ('excursiones.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-bus"></i>
@@ -65,6 +68,7 @@
                                 </p>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{route ('misdatos.index')}}" class="nav-link ">
                                 <i class="nav-icon fas fa-envelope"></i>
@@ -88,4 +92,5 @@
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
+
         </aside>

@@ -55,9 +55,9 @@
                                             class="form-control @error('rol') is-invalid @enderror"
                                             id="exampleFormControlSelect2"
                                             required="">
-                                        <option value="Admin" {{$user->rol == 'Admin' ? 'selected': ''}}> Admin</option>
-                                        <option value="Editor" {{$user->rol == 'Editor' ? 'selected' : ''}}>Editor</option>
-                                        <option value="Ventas" {{$user->rol == 'Ventas'? 'selected' : ''}}>Ventas</option>
+                                        <option value="admin" {{$user->rol == 'admin' ? 'selected': ''}}> Admin</option>
+                                        <option value="editor" {{$user->rol == 'editor' ? 'selected' : ''}}>Editor</option>
+                                        <option value="ventas" {{$user->rol == 'ventas'? 'selected' : ''}}>Ventas</option>
                                     </select>
                                     @error('rol')
                                         <p class="mt-2 alert alert-danger"> seleccione un rol </p>

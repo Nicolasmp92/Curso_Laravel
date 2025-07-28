@@ -51,7 +51,6 @@
                                                     <div class="btn-group-vertical w-100" role="group">
                                                         {{-- GALERÍA --}}
                                                         <a href="{{ route('galerias.edit', $excu->id) }}"
-
                                                             class="btn btn-info btn-sm mb-1" title="Gestionar galería">
                                                             <i class="fa fa-image"></i> Galería
                                                         </a>

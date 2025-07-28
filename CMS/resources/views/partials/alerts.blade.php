@@ -1,7 +1,7 @@
-{{-- ===================== ℹ️ TOASTR ===================== --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (typeof toastr !== 'undefined') {
+
             @if (session('toast_success'))
                 toastr.options = {
                     "closeButton": true,
@@ -25,7 +25,7 @@
             @endif
 
             @if (session('toast_info'))
-             toastr.options = {
+                toastr.options = {
                     "closeButton": true,
                     "progressBar": true,
                     "positionClass": "toast-top-right",
@@ -33,6 +33,18 @@
                 };
                 toastr.info(`{{ session('toast_info') }}`);
             @endif
+
+            // ✅ Errores de validación de Laravel
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    toastr.error("{{ $error }}", "Error de validación", {
+                        "timeOut": 4000,
+                        "closeButton": true,
+                        "progressBar": true,
+                    });
+                @endforeach
+            @endif
+
         } else {
             console.warn("⚠️ toastr no está definido al momento de ejecutar los toasts.");
         }

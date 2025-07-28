@@ -11,9 +11,11 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\GaleriaController;
 use Doctrine\DBAL\Driver\Middleware;
+
 // TODO Facades
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -56,18 +58,12 @@ Route::put('/misdatos-pass', [MisdatosController::class, 'updatePass'])->middlew
 
 
 // TODO para administrar USUARIOS
-//? Esto es para ir a la ruta (si muestra datos, ver diferencia en controlador)
-Route::get('/usuarios',[UsersController::class,'index'])->middleware('auth')->name('usuarios.index');
-// ? mostrar formulario
-Route::get('/crear-usuarios',[UsersController::class,'create'])->middleware('auth')->name('usuarios.create');
-// ? guarda nuevos datos en DB
-Route::post('/crear-usuarios',[UsersController::class,'store'])->middleware('auth')->name('usuarios.store');
-//? muestro una vista con los datos necesarios para editar usuarios
-Route::get('editar-usuarios/{id}/edit',[UsersController::class, 'edit'])->middleware('auth')->name('usuarios.edit');
-// tomo los datos de esa vista y los paso para subirlos a la DB
-Route::post('editar-usuarios/{id}/edit',[UsersController::class, 'update'])->middleware('auth')->name('usuarios.update');
-// ? Eliminar usuarios
-Route::delete('/eliminar_usuarios/{id}',[UsersController::class,'destroy'])->middleware('auth')->name('usuarios.destroy');
+// Route::get('/usuarios',[UsersController::class,'index'])->middleware('auth')->name('usuarios.index');
+// Route::get('/crear-usuarios',[UsersController::class,'create'])->middleware('auth')->name('usuarios.create');
+// Route::post('/crear-usuarios',[UsersController::class,'store'])->middleware('auth')->name('usuarios.store');
+// Route::get('editar-usuarios/{id}/edit',[UsersController::class, 'edit'])->middleware('auth')->name('usuarios.edit');
+// Route::post('editar-usuarios/{id}/edit',[UsersController::class, 'update'])->middleware('auth')->name('usuarios.update');
+// Route::delete('/eliminar_usuarios/{id}',[UsersController::class,'destroy'])->middleware('auth')->name('usuarios.destroy');
 
 
 // TODO Slide
@@ -82,17 +78,19 @@ Route::delete('/eliminar-slide/{id}', [SlideController::class, 'destroy'])->name
 
 //  TODO Galeria
 // Mostrar formulario de edición de galería
-Route::get('/galerias/{excursion}', [GaleriaController::class, 'edit'])->middleware('auth')->name('galerias.edit');
+Route::get('/galerias/{excu}', [GaleriaController::class, 'edit'])
+    ->middleware('auth')
+    ->name('galerias.edit');
 
 // Subir nuevas imágenes a la galería
 Route::put('/galerias/{excursion}', [GaleriaController::class, 'update'])
-    ->name('galerias.update')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->name('galerias.update');
 
 // Eliminar una imagen específica
-Route::delete('/galerias/{imagen}', [GaleriaController::class, 'destroy'])
-    ->name('galerias.destroy')
-    ->middleware('auth');
+Route::delete('/galerias/{galeria}', [GaleriaController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('galerias.destroy');
 
 
 
@@ -111,7 +109,7 @@ Route::delete('/categorias-delete/{categoria}',[CategoriasController:: class, 'd
 
 // TODO excursiones
 // ? retornando vista con datos
-Route::get('/excursiones-show',[ExcursionesController::class, 'index'])->middleware('auth')->name('excursiones.index');
+// Route::get('/excursiones-show',[ExcursionesController::class, 'index'])->middleware('auth')->name('excursiones.index');
 // ? crear excursiones
 Route::get('/excursiones-create',[ExcursionesController::class, 'create'])->middleware('auth')->name('excursiones.create');
 // ? almacenar
@@ -121,7 +119,27 @@ Route::delete('/excursiones-delete/{excu}',[ExcursionesController::class, 'destr
 //? Buscar
 Route::get('editar-excursiones/{id}/edit',[ExcursionesController::class, 'edit'])->middleware('auth')->name('excursiones.edit');
 // ? Actualizar excursion
-Route::put('editar-excursiones/{excu}', [ExcursionesController::class, 'update'])->name('excursiones.update');
+Route::put('editar-excursiones/{excu}', [ExcursionesController::class, 'update'])->middleware('auth')->name('excursiones.update');
 
 
 
+//! Rutas solo para ADMIN
+Route::middleware(['auth', 'checkrole:admin'])->group(function () {
+    Route::get('/usuarios',[UsersController::class,'index'])->name('usuarios.index');
+    Route::get('/crear-usuarios',[UsersController::class,'create'])->name('usuarios.create');
+    Route::post('/crear-usuarios',[UsersController::class,'store'])->name('usuarios.store');
+    Route::get('editar-usuarios/{id}/edit',[UsersController::class, 'edit'])->name('usuarios.edit');
+    Route::post('editar-usuarios/{id}/edit',[UsersController::class, 'update'])->name('usuarios.update');
+    Route::delete('/eliminar_usuarios/{id}',[UsersController::class,'destroy'])->name('usuarios.destroy');
+});
+
+//! Rutas para ADMIN y EDITOR
+Route::middleware(['auth', 'checkrole:admin,editor'])->group(function () {
+    Route::get('/excursiones-show',[ExcursionesController::class, 'index'])->name('excursiones.index');
+    // y más rutas...
+});
+
+//! Rutas para ADMIN , EDITOR y VENTAS
+// Route::middleware(['auth', 'checkrole:admin,editor,ventas'])->group(function () {
+//     Route::get('/excursiones-show',[ExcursionesController::class, 'index'])->name('excursiones.index');
+// });

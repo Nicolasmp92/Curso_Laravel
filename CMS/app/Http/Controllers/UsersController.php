@@ -8,6 +8,41 @@ use Illuminate\Support\Facades\Hash;// para el uso de hash 👇
 
 class UsersController extends Controller
 {
+    // ! Logica de roles
+    public function isAdmin():bool{
+        return $this->checkrole === 'admin';
+    }
+    public function isEditor(): bool
+    {
+        return $this->checkrole === 'editor';
+    }
+
+    public function isVentas(): bool
+    {
+        return $this->checkrole === 'ventas';
+    }
+
+
+
+    //  public function isAdmin(): bool
+    // {
+    //     return auth()->user() && auth()->user()->rol === 'admin';
+    // }
+
+    // public function isEditor(): bool
+    // {
+    //     return auth()->user() && auth()->user()->rol === 'editor';
+    // }
+
+    // public function isVentas(): bool
+    // {
+    //     return auth()->user() && auth()->user()->rol === 'ventas';
+    // }
+
+
+
+
+
     // !listando usuarios
     public function index(){
 

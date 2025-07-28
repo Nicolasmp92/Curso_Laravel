@@ -77,6 +77,9 @@ public function update(Request $request, Excursiones $excu){
         ->route('excursiones.edit', $excu->id)
         ->with('toast_success', 'Excursión actualizada exitosamente!');
     }
+
+
+
     public function destroy($id)
     {
         $excu = Excursiones::findOrFail($id);

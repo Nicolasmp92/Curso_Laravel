@@ -1,0 +1,28 @@
+.preview-wrapper {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .preview-wrapper img {
+        transition: 0.3s ease;
+    }
+
+    .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        cursor: pointer;
+        display: none;
+    }
+
+    .preview-wrapper:hover .remove-btn {
+        display: block;
+    }

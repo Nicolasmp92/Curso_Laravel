@@ -16,7 +16,9 @@
             <div class="card-body">
                 <h1 class="text-info text-bold">
                     ¡Bienvenid@ {{ Auth::user()->name }}!
+
                 </h1>
+                {{-- <p>{{dd(Auth::user());}}</p> --}}
                 <p class="text-muted">Este es tu panel de novedades personales.</p>
             </div>
         </div>

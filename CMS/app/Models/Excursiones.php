@@ -17,4 +17,9 @@ class Excursiones extends Model
     {
         return $this->belongsTo(Categorias::class, 'id_categoria');
     }
+
+    public function galerias()
+    {
+        return $this->hasMany(Galeria::class, 'excursion_id');
+    }
 }

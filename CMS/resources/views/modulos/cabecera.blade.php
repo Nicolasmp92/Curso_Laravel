@@ -14,11 +14,12 @@
         <div class="user-panel  d-flex">
 
             <div class="image w-20 h-20">
-                <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('storage/' . auth()->user()->image) }}" class="img-circle elevation-2"
+                    alt="User Image">
             </div>
 
             <div class="info text-muted">
-                <a href="#" class="text-muted d-block"> {{auth()->user()->name}} </a>
+                <a href="#" class="text-muted d-block"> {{ auth()->user()->name }} </a>
                 {{-- {{auth()->user()->name}} --}}
 
             </div>
@@ -32,7 +33,7 @@
             <!-- MENÚ DESPLEGABLE -->
             <div class="dropdown-menu dropdown-menu-right">
                 <!-- ITEM: AJUSTES -->
-                <a href="{{route ('misdatos.index')}}" class="dropdown-item">
+                <a href="{{ route('misdatos.index') }}" class="dropdown-item">
                     <i class="fas fa-cog mr-2"></i> Ajustes
                 </a>
                 <div class="dropdown-divider"></div>
@@ -41,12 +42,13 @@
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
                 </a>
-                <!-- FORMULARIO INVISIBLE -->
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+
             </div>
         </li>
     </ul>
+    <!--! FORMULARIO INVISIBLE para el logout -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
 </nav>
 <!-- /.navbar -->

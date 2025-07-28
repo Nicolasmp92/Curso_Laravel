@@ -46,21 +46,15 @@ class SlideController extends Controller
 
 
     // Muestra el recurso especificado.
-    public function show(Slide $slide)
-    {
-        //
+    public function show(Slide $slide){
     }
 
     // Muestra el formulario para editar el recurso especificado.
-    public function edit(Slide $slide)
-    {
-        //
+    public function edit(Slide $slide){
     }
 
     // Actualiza el recurso especificado en el almacenamiento.
-    public function update(Request $request, Slide $slide)
-    {
-        //
+    public function update(Request $request, Slide $slide){
     }
 
     // Elimina el recurso especificado del almacenamiento.
